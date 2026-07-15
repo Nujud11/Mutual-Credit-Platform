@@ -1,0 +1,765 @@
+.recommendations-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  
+  .recommendations-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 34px;
+  
+    border-radius: 24px;
+  
+    color: #ffffff;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #19346f,
+        #2c67ea 55%,
+        #7c35f2
+      );
+  
+    box-shadow:
+      0 18px 40px
+      rgba(32, 69, 160, 0.16);
+  }
+  
+  
+  .recommendations-header h2 {
+    margin:
+      8px 0 10px;
+  
+    font-size: 38px;
+  
+    color: #ffffff;
+  }
+  
+  
+  .recommendations-header p {
+    margin: 0;
+  
+    max-width: 650px;
+  
+    font-size: 17px;
+  
+    line-height: 1.9;
+  
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.88
+      );
+  }
+  
+  
+  .recommendations-label {
+    font-weight: 700;
+  
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.7
+      );
+  }
+  
+  
+  .recommendations-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 86px;
+    height: 86px;
+  
+    border: 1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.25
+      );
+  
+    border-radius: 24px;
+  
+    font-size: 34px;
+  
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.12
+      );
+  }
+  
+  
+  .ai-analysis-card {
+    padding: 28px;
+  }
+  
+  
+  .ai-analysis-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 20px;
+  }
+  
+  
+  .ai-analysis-title {
+    display: flex;
+    align-items: center;
+  
+    gap: 14px;
+  }
+  
+  
+  .ai-analysis-title h3 {
+    margin:
+      0 0 5px;
+  
+    color: #14213d;
+  }
+  
+  
+  .ai-analysis-title p {
+    margin: 0;
+  
+    color: #6d7b93;
+  }
+  
+  
+  .ai-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 48px;
+    height: 48px;
+  
+    border-radius: 15px;
+  
+    font-weight: 800;
+  
+    color: #ffffff;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #5d48f4,
+        #9237f2
+      );
+  }
+  
+  
+  .primary-button {
+    border: none;
+  
+    border-radius: 13px;
+  
+    padding:
+      13px 20px;
+  
+    font-family: inherit;
+  
+    font-size: 15px;
+    font-weight: 700;
+  
+    color: #ffffff;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #2868ef,
+        #7a39ef
+      );
+  
+    cursor: pointer;
+  
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  
+  
+  .primary-button:hover {
+    transform:
+      translateY(-1px);
+  }
+  
+  
+  .primary-button:disabled {
+    opacity: 0.65;
+  
+    cursor: not-allowed;
+  
+    transform: none;
+  }
+  
+  
+  .ai-analysis-content {
+    margin-top: 22px;
+  }
+  
+  
+  .ai-analysis-state,
+  .ai-analysis-result {
+    display: flex;
+    align-items: center;
+  
+    gap: 15px;
+  
+    padding: 20px;
+  
+    border: 1px solid #e4e9f3;
+  
+    border-radius: 18px;
+  
+    background: #f8f9ff;
+  }
+  
+  
+  .ai-analysis-state h4 {
+    margin:
+      0 0 5px;
+  
+    color: #18213a;
+  }
+  
+  
+  .ai-analysis-state p,
+  .ai-analysis-result p {
+    margin: 0;
+  
+    line-height: 1.9;
+  
+    color: #66758d;
+  }
+  
+  
+  .ai-analysis-state-icon,
+  .ai-analysis-result-icon,
+  .ai-loading-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    width: 48px;
+    height: 48px;
+  
+    border-radius: 15px;
+  
+    font-weight: 800;
+  
+    color: #6838e8;
+  
+    background: #eee9ff;
+  }
+  
+  
+  .ai-analysis-state--error {
+    border-color: #ffd7d7;
+  
+    background: #fff5f5;
+  }
+  
+  
+  .recommendations-message {
+    margin-top: 18px;
+  
+    padding: 14px 16px;
+  
+    border-radius: 14px;
+  
+    font-weight: 700;
+  }
+  
+  
+  .recommendations-message--success {
+    color: #147446;
+  
+    background: #dcf9e8;
+  }
+  
+  
+  .recommendations-message--error {
+    color: #b53434;
+  
+    background: #ffe5e5;
+  }
+  
+  
+  .recommendations-message--info {
+    color: #315da8;
+  
+    background: #e9f1ff;
+  }
+  
+  
+  .recommendations-results-section {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 18px;
+  }
+  
+  
+  .recommendations-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 20px;
+  }
+  
+  
+  .recommendations-section-heading h3 {
+    margin:
+      5px 0 0;
+  
+    color: #17213a;
+  }
+  
+  
+  .section-label {
+    font-size: 14px;
+    font-weight: 700;
+  
+    color: #7750e9;
+  }
+  
+  
+  .recommendations-count {
+    padding:
+      8px 14px;
+  
+    border-radius: 999px;
+  
+    font-weight: 700;
+  
+    color: #6441dd;
+  
+    background: #eee9ff;
+  }
+  
+  
+  .recommendations-list {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(
+          330px,
+          1fr
+        )
+      );
+  
+    gap: 20px;
+  }
+  
+  
+  .recommendation-card {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 20px;
+  
+    padding: 22px;
+  
+    border: 1px solid #dfe6f2;
+  
+    border-radius: 22px;
+  
+    background: #ffffff;
+  
+    box-shadow:
+      0 12px 28px
+      rgba(
+        25,
+        45,
+        85,
+        0.08
+      );
+  }
+  
+  
+  .recommendation-card-top {
+    display: flex;
+  
+    gap: 14px;
+  }
+  
+  
+  .recommendation-ranking {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    width: 44px;
+    height: 44px;
+  
+    border-radius: 14px;
+  
+    font-weight: 800;
+  
+    color: #ffffff;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #3268ef,
+        #7737ed
+      );
+  }
+  
+  
+  .recommendation-company {
+    flex: 1;
+  }
+  
+  
+  .recommendation-company-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  
+    gap: 14px;
+  }
+  
+  
+  .recommendation-company-heading h3 {
+    margin:
+      6px 0 0;
+  
+    font-size: 21px;
+  
+    color: #121b2e;
+  }
+  
+  
+  .recommendation-category {
+    font-size: 14px;
+    font-weight: 700;
+  
+    color: #2868ef;
+  }
+  
+  
+  .recommendation-score {
+    text-align: center;
+  
+    min-width: 80px;
+  
+    padding:
+      10px 12px;
+  
+    border-radius: 15px;
+  
+    background: #f0edff;
+  }
+  
+  
+  .recommendation-score strong {
+    display: block;
+  
+    font-size: 20px;
+  
+    color: #653bdc;
+  }
+  
+  
+  .recommendation-score span {
+    font-size: 11px;
+  
+    color: #7a7691;
+  }
+  
+  
+  .recommendation-description {
+    margin:
+      14px 0 0;
+  
+    line-height: 1.8;
+  
+    color: #66758d;
+  }
+  
+  
+  .recommendation-company-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 16px;
+  
+    padding: 15px;
+  
+    border-radius: 17px;
+  
+    background: #f7f9fc;
+  }
+  
+  
+  .recommendation-company-identity {
+    display: flex;
+    align-items: center;
+  
+    gap: 12px;
+  }
+  
+  
+  .recommendation-company-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 46px;
+    height: 46px;
+  
+    border-radius: 14px;
+  
+    font-weight: 800;
+  
+    color: #7137e6;
+  
+    background: #ece7ff;
+  }
+  
+  
+  .recommendation-company-identity small,
+  .recommendation-company-metrics small,
+  .recommendation-reason small {
+    display: block;
+  
+    color: #8290a4;
+  }
+  
+  
+  .recommendation-company-identity strong {
+    display: block;
+  
+    margin:
+      3px 0;
+  
+    color: #17213a;
+  }
+  
+  
+  .recommendation-company-identity span {
+    font-size: 13px;
+  
+    color: #6f7c91;
+  }
+  
+  
+  .recommendation-company-metrics {
+    display: flex;
+  
+    gap: 22px;
+  
+    text-align: center;
+  }
+  
+  
+  .recommendation-company-metrics strong {
+    display: block;
+  
+    margin-top: 4px;
+  
+    color: #15203a;
+  }
+  
+  
+  .recommendation-reason {
+    display: flex;
+  
+    gap: 12px;
+  
+    padding: 16px;
+  
+    border:
+      1px solid #ded7ff;
+  
+    border-radius: 17px;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #faf9ff,
+        #f3f0ff
+      );
+  }
+  
+  
+  .recommendation-reason-icon {
+    color: #7440e9;
+  
+    font-size: 20px;
+  }
+  
+  
+  .recommendation-reason p {
+    margin:
+      5px 0 0;
+  
+    line-height: 1.8;
+  
+    color: #55637a;
+  }
+  
+  
+  .recommendation-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    gap: 14px;
+  }
+  
+  
+  .recommendation-risk {
+    font-size: 13px;
+  
+    color: #758197;
+  }
+  
+  
+  .recommendations-state {
+    grid-column:
+      1 / -1;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    min-height: 260px;
+  
+    padding: 30px;
+  
+    border:
+      1px dashed #d9e0ec;
+  
+    border-radius: 22px;
+  
+    text-align: center;
+  
+    background: #ffffff;
+  }
+  
+  
+  .recommendations-state-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 62px;
+    height: 62px;
+  
+    margin-bottom: 14px;
+  
+    border-radius: 20px;
+  
+    font-size: 24px;
+  
+    color: #7240e7;
+  
+    background: #eee9ff;
+  }
+  
+  
+  .recommendations-state h3 {
+    margin:
+      0 0 7px;
+  
+    color: #17213a;
+  }
+  
+  
+  .recommendations-state p {
+    margin: 0;
+  
+    color: #77859a;
+  }
+  
+  
+  .recommendations-state--error {
+    border-color: #ffd3d3;
+  
+    background: #fff8f8;
+  }
+  
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  
+  @media (
+    max-width: 900px
+  ) {
+    .recommendations-header,
+    .ai-analysis-card-header,
+    .recommendation-company-details,
+    .recommendation-card-actions {
+      flex-direction: column;
+  
+      align-items: stretch;
+    }
+  
+    .recommendations-header-icon {
+      align-self: flex-end;
+    }
+  
+    .recommendation-company-heading {
+      flex-direction: column;
+    }
+  
+    .recommendation-score {
+      align-self: flex-start;
+    }
+  }
+
+
+  .recommendations-analysis-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  
+  .last-analysis-date {
+    font-size: 13px;
+    color: #78869b;
+    white-space: nowrap;
+  }
+  
+  
+  @media (
+    max-width: 900px
+  ) {
+    .recommendations-analysis-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .last-analysis-date {
+      white-space: normal;
+    }
+  }

@@ -1,0 +1,437 @@
+.transactions-page {
+    display: grid;
+    gap: 22px;
+  }
+  
+  .transactions-header {
+    min-height: 180px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  
+    padding: 32px;
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      linear-gradient(
+        135deg,
+        #172554,
+        var(--color-primary),
+        var(--color-ai)
+      );
+  
+    color: white;
+  
+    box-shadow:
+      var(--shadow-medium);
+  }
+  
+  .transactions-label {
+    color: #c4b5fd;
+  
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .transactions-header h2 {
+    margin-top: 8px;
+  
+    font-size: 31px;
+  }
+  
+  .transactions-header p {
+    margin-top: 11px;
+  
+    color: #e2e8f0;
+  
+    line-height: 1.8;
+  }
+  
+  .transactions-header-icon {
+    width: 82px;
+    height: 82px;
+  
+    display: grid;
+    place-items: center;
+  
+    border: 1px solid
+      rgba(255, 255, 255, 0.2);
+  
+    border-radius: 23px;
+  
+    background:
+      rgba(255, 255, 255, 0.12);
+  
+    font-size: 32px;
+  }
+  
+  
+  .transactions-summary {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  
+    gap: 15px;
+  }
+  
+  .transaction-summary-card {
+    padding: 20px;
+  
+    border: 1px solid
+      var(--color-border);
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      var(--color-surface);
+  
+    box-shadow:
+      var(--shadow-small);
+  }
+  
+  .transaction-summary-card span {
+    color:
+      var(--color-text-secondary);
+  
+    font-size: 13px;
+  }
+  
+  .transaction-summary-card strong {
+    display: block;
+  
+    margin-top: 12px;
+  
+    font-size: 27px;
+  }
+  
+  
+  .transactions-filters {
+    display: flex;
+    gap: 9px;
+  
+    padding: 12px;
+  
+    overflow-x: auto;
+  }
+  
+  .transaction-filter-button {
+    flex-shrink: 0;
+  
+    padding: 10px 15px;
+  
+    border: none;
+    border-radius:
+      var(--radius-medium);
+  
+    background: transparent;
+  
+    color:
+      var(--color-text-secondary);
+  
+    font-weight: 700;
+  }
+  
+  .transaction-filter-button.active {
+    background:
+      var(--color-primary);
+  
+    color: white;
+  }
+  
+  
+  .transactions-list {
+    display: grid;
+    gap: 13px;
+  }
+  
+  .transaction-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  
+    padding: 20px;
+  
+    border: 1px solid
+      var(--color-border);
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      var(--color-surface);
+  
+    box-shadow:
+      var(--shadow-small);
+  }
+  
+  .transaction-card-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .transaction-direction-icon {
+    width: 48px;
+    height: 48px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius:
+      var(--radius-medium);
+  
+    background:
+      var(--color-ai-light);
+  
+    color:
+      var(--color-ai);
+  
+    font-size: 21px;
+    font-weight: 800;
+  }
+  
+  .transaction-card-labels {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    margin-bottom: 8px;
+  }
+  
+  .transaction-direction,
+  .transaction-status {
+    padding: 5px 9px;
+  
+    border-radius: 999px;
+  
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  .transaction-direction--outgoing {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+  
+  .transaction-direction--incoming {
+    background: #f3e8ff;
+    color: #7e22ce;
+  }
+  
+  .transaction-status--pending {
+    background:
+      var(--color-warning-light);
+  
+    color: #b45309;
+  }
+  
+  .transaction-status--accepted {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+  
+  .transaction-status--completed {
+    background:
+      var(--color-success-light);
+  
+    color: #15803d;
+  }
+  
+  .transaction-status--rejected {
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  }
+  
+  .transaction-information h3 {
+    font-size: 18px;
+  }
+  
+  .transaction-information p {
+    margin-top: 7px;
+  
+    color:
+      var(--color-text-secondary);
+  }
+  
+  .transaction-card-amount {
+    text-align: left;
+  }
+  
+  .transaction-card-amount small,
+  .transaction-card-amount strong {
+    display: block;
+  }
+  
+  .transaction-card-amount small {
+    margin-bottom: 6px;
+  
+    color:
+      var(--color-text-secondary);
+  }
+  
+  .transaction-card-amount strong {
+    color:
+      var(--color-primary);
+  
+    font-size: 19px;
+  }
+  
+  
+  .transactions-state {
+    min-height: 330px;
+  
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 10px;
+  
+    padding: 30px;
+  
+    border: 1px dashed
+      var(--color-border);
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      var(--color-surface);
+  
+    text-align: center;
+  }
+  
+  .transactions-state p {
+    color:
+      var(--color-text-secondary);
+  
+    line-height: 1.7;
+  }
+  
+  .transactions-state-icon {
+    width: 62px;
+    height: 62px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius: 20px;
+  
+    background:
+      var(--color-ai-light);
+  
+    color:
+      var(--color-ai);
+  
+    font-size: 26px;
+  }
+  
+  .transactions-state--error
+  .transactions-state-icon {
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  }
+  
+  
+  @media (max-width: 1000px) {
+    .transactions-summary {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  
+  @media (max-width: 650px) {
+    .transactions-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .transactions-summary {
+      grid-template-columns: 1fr;
+    }
+  
+    .transaction-card {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .transaction-card-amount {
+      width: 100%;
+  
+      padding-top: 14px;
+  
+      border-top: 1px solid
+        var(--color-border);
+  
+      text-align: right;
+    }
+  }
+
+  .transaction-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    margin-top: 16px;
+  }
+  
+  .transaction-action-button {
+    padding: 9px 14px;
+  
+    border: none;
+    border-radius:
+      var(--radius-medium);
+  
+    font-weight: 700;
+  
+    transition:
+      var(--transition-fast);
+  }
+  
+  .transaction-action-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .transaction-action-button--accept {
+    background:
+      var(--color-success-light);
+  
+    color: #15803d;
+  }
+  
+  .transaction-action-button--reject {
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  }
+  
+  .transaction-action-button:hover:not(:disabled) {
+    transform:
+      translateY(-1px);
+  }
+
+  .transaction-action-button--complete {
+    background:
+      linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-ai)
+      );
+  
+    color: white;
+  }

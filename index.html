@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="منصة ذكية للائتمان المتبادل والمقاصة بين المنشآت الصغيرة"
+  >
+
+  <title>مقاصة | شبكة الائتمان المتبادل</title>
+
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <!--
+      هذا العنصر يعرض صفحات تسجيل الدخول
+      وإنشاء حساب الشركة.
+    -->
+    <div id="auth-root"></div>
+  
+    <!--
+      هذا هو التطبيق الرئيسي.
+      يبدأ مخفيًا إلى أن يسجل المستخدم دخوله.
+    -->
+    <div id="app-root" class="app-layout hidden">
+  
+      <aside id="sidebar" class="sidebar">
+        <!-- سيتم إنشاء القائمة الجانبية بواسطة JavaScript -->
+      </aside>
+  
+      <main class="main-content">
+  
+        <header id="topbar" class="topbar">
+          <!-- سيتم إنشاء الترويسة بواسطة JavaScript -->
+        </header>
+  
+        <section id="page-content" class="page-content">
+          <!-- سيتم عرض الصفحة الحالية هنا -->
+        </section>
+  
+      </main>
+  
+    </div>
+  
+    <script
+      type="module"
+      src="assets/js/app.js"
+    ></script>
+  </body>
+</html>

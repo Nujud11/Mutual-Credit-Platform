@@ -1,0 +1,171 @@
+/* الشعار */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  
+    padding: 4px 8px 28px;
+  }
+  
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius: var(--radius-medium);
+  
+    background:
+      linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-ai)
+      );
+  
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .brand-name {
+    font-size: 21px;
+    font-weight: bold;
+  }
+  
+  .brand-description {
+    margin-top: 4px;
+  
+    color: #94a3b8;
+    font-size: 12px;
+  }
+  
+  
+  /* القائمة الجانبية */
+  
+  .sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .navigation-button {
+    width: 100%;
+  
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  
+    padding: 13px 14px;
+  
+    border: none;
+    border-radius: var(--radius-medium);
+  
+    background: transparent;
+    color: #cbd5e1;
+  
+    text-align: right;
+  
+    transition: var(--transition-fast);
+  }
+  
+  .navigation-button:hover {
+    background-color: var(--color-sidebar-hover);
+    color: white;
+  }
+  
+  .navigation-button.active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  
+  /* الترويسة */
+  
+  .page-heading h1 {
+    font-size: 26px;
+  }
+  
+  .page-heading p {
+    margin-top: 6px;
+  
+    color: var(--color-text-secondary);
+    font-size: 14px;
+  }
+  
+  .company-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .company-avatar {
+    width: 44px;
+    height: 44px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius: 50%;
+  
+    background-color: var(--color-ai-light);
+    color: var(--color-ai);
+  
+    font-size: 21px;
+  }
+  
+  
+  /* بطاقات عامة */
+  
+  .card {
+    padding: 20px;
+  
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-large);
+  
+    box-shadow: var(--shadow-small);
+  }
+  
+  .page-placeholder {
+    min-height: 420px;
+  
+    display: grid;
+    place-items: center;
+  
+    text-align: center;
+  }
+  
+  .page-placeholder h2 {
+    margin-bottom: 10px;
+  }
+  
+  .page-placeholder p {
+    color: var(--color-text-secondary);
+  }
+
+  .topbar-user-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .logout-button {
+    padding: 10px 14px;
+  
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+  
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+  
+    transition: var(--transition-fast);
+  }
+  
+  .logout-button:hover {
+    border-color: var(--color-danger);
+  
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+  }
