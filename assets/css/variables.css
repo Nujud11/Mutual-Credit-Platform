@@ -1,0 +1,51 @@
+:root {
+    /* الألوان الأساسية */
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+  
+    /* لون خصائص الذكاء الاصطناعي */
+    --color-ai: #7c3aed;
+    --color-ai-light: #ede9fe;
+  
+    /* القائمة الجانبية */
+    --color-sidebar: #0f172a;
+    --color-sidebar-hover: #1e293b;
+  
+    /* خلفيات المنصة */
+    --color-background: #f8fafc;
+    --color-surface: #ffffff;
+  
+    /* النصوص */
+    --color-text-primary: #111827;
+    --color-text-secondary: #64748b;
+    --color-text-light: #f8fafc;
+  
+    /* الحدود */
+    --color-border: #e2e8f0;
+  
+    /* حالات النظام */
+    --color-success: #22c55e;
+    --color-success-light: #dcfce7;
+  
+    --color-warning: #f59e0b;
+    --color-warning-light: #fef3c7;
+  
+    --color-danger: #ef4444;
+    --color-danger-light: #fee2e2;
+  
+    /* أحجام الواجهة */
+    --sidebar-width: 260px;
+    --topbar-height: 80px;
+  
+    /* الزوايا */
+    --radius-small: 8px;
+    --radius-medium: 12px;
+    --radius-large: 18px;
+  
+    /* الظلال */
+    --shadow-small: 0 2px 8px rgba(15, 23, 42, 0.06);
+    --shadow-medium: 0 10px 30px rgba(15, 23, 42, 0.08);
+  
+    /* الانتقالات */
+    --transition-fast: 0.2s ease;
+  }
