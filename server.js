@@ -131,6 +131,10 @@ app.use(
   }),
 );
 
+app.get("/", (_request, response) => {
+  response.sendFile(path.join(__dirname, "index.html"));
+});
+
 app.get("/{*splat}", (_request, response) => {
   response.sendFile(path.join(__dirname, "index.html"));
 });
