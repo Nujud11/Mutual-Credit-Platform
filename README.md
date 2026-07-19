@@ -426,13 +426,47 @@ The prototype demonstrates:
 > Add screenshots here after deployment.
 
 ```
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 22 26 AM" src="https://github.com/user-attachments/assets/c9b18412-dd39-4860-8566-e8cc6eb0d3ce" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 24 15 AM" src="https://github.com/user-attachments/assets/13817a4e-727f-44fd-8f9e-0e68875ab19e" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 22 31 AM" src="https://github.com/user-attachments/assets/64995788-1678-4a06-9893-ff81dab4f557" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 25 50 AM" src="https://github.com/user-attachments/assets/70bb8db8-e863-498b-bc66-e980ad9ba8ac" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 25 21 AM" src="https://github.com/user-attachments/assets/f0c885a2-d783-4518-8862-26973778c55e" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 24 50 AM" src="https://github.com/user-attachments/assets/b8995c34-e03f-465d-b27b-cf637f901e6e" />
-<img width="1470" height="956" alt="Screenshot 1448-02-05 at 4 24 23 AM" src="https://github.com/user-attachments/assets/e219443a-ce4d-431a-a6e4-47b0f9ed01c7" />
+# 📷 Screenshots
+
+### 🏠 Dashboard
+
+<img width="1470" alt="Dashboard" src="https://github.com/user-attachments/assets/c9b18412-dd39-4860-8566-e8cc6eb0d3ce" />
+
+---
+
+### 🛒 Service Marketplace
+
+<img width="1470" alt="Marketplace" src="https://github.com/user-attachments/assets/64995788-1678-4a06-9893-ff81dab4f557" />
+
+---
+
+### ➕ Add New Service
+
+<img width="1470" alt="Add Service" src="https://github.com/user-attachments/assets/13817a4e-727f-44fd-8f9e-0e68875ab19e" />
+
+---
+
+### 🤝 Transactions
+
+<img width="1470" alt="Transactions" src="https://github.com/user-attachments/assets/e219443a-ce4d-431a-a6e4-47b0f9ed01c7" />
+
+---
+
+### 💳 Transaction Details
+
+<img width="1470" alt="Transaction Details" src="https://github.com/user-attachments/assets/b8995c34-e03f-465d-b27b-cf637f901e6e" />
+
+---
+
+### 🤖 AI Smart Recommendations
+
+<img width="1470" alt="AI Recommendations" src="https://github.com/user-attachments/assets/f0c885a2-d783-4518-8862-26973778c55e" />
+
+---
+
+### 📊 AI Analysis Results
+
+<img width="1470" alt="AI Analysis" src="https://github.com/user-attachments/assets/70bb8db8-e863-498b-bc66-e980ad9ba8ac" />
 
 ```
 
