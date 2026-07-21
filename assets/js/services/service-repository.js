@@ -19,7 +19,10 @@ import {
     "services";
 
   const COMPANIES_COLLECTION =
-  "companies";
+    "companies";
+
+  const TRANSACTIONS_COLLECTION =
+    "transactions";
 
   
   export async function createService(
@@ -116,6 +119,54 @@ import {
   export async function deleteService(
     serviceId,
   ) {
+    if (!serviceId) {
+      throw new Error(
+        "service-not-found",
+      );
+    }
+
+    const relatedTransactionsQuery =
+      query(
+        collection(
+          db,
+          TRANSACTIONS_COLLECTION,
+        ),
+        where(
+          "serviceId",
+          "==",
+          serviceId,
+        ),
+      );
+
+    const transactionsSnapshot =
+      await getDocs(
+        relatedTransactionsQuery,
+      );
+
+    const blockingStatuses =
+      new Set([
+        "pending",
+        "accepted",
+      ]);
+
+    const hasActiveTransactions =
+      transactionsSnapshot.docs.some(
+        (transactionDocument) => {
+          const transactionData =
+            transactionDocument.data();
+
+          return blockingStatuses.has(
+            transactionData.status,
+          );
+        },
+      );
+
+    if (hasActiveTransactions) {
+      throw new Error(
+        "service-has-active-transactions",
+      );
+    }
+
     await deleteDoc(
       doc(
         db,

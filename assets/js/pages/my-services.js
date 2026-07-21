@@ -690,6 +690,24 @@ import {
       },
     );
   }
+
+
+  function getDeleteServiceErrorMessage(
+    error,
+  ) {
+    const messages = {
+      "service-has-active-transactions":
+        "لا يمكن حذف الخدمة لأنها مرتبطة بطلب معلق أو معاملة مقبولة. يمكنك إيقاف الخدمة مؤقتًا بدلًا من حذفها.",
+  
+      "service-not-found":
+        "لم يتم العثور على الخدمة المطلوبة.",
+    };
+  
+    return (
+      messages[error?.message]
+      ?? "تعذر حذف الخدمة. حاول مرة أخرى."
+    );
+  }
   
   
   function attachDeleteEvents(
@@ -707,14 +725,20 @@ import {
           async () => {
             const shouldDelete =
               window.confirm(
-                "هل أنت متأكد من حذف هذه الخدمة؟",
+                " هل أنت متأكد من حذف هذه الخدمة؟  لا يمكن التراجع عن هذه العملية",
               );
   
             if (!shouldDelete) {
               return;
             }
+
+            const originalText =
+            button.textContent;
   
             button.disabled = true;
+
+            button.textContent =
+            "جاري الحذف...";
   
             try {
               await deleteService(
@@ -730,12 +754,17 @@ import {
                 "تعذر حذف الخدمة:",
                 error,
               );
-  
+            
               window.alert(
-                "تعذر حذف الخدمة.",
+                getDeleteServiceErrorMessage(
+                  error,
+                ),
               );
-  
+            
               button.disabled = false;
+            
+              button.textContent =
+                originalText;
             }
           },
         );
