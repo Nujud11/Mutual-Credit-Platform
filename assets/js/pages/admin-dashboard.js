@@ -101,67 +101,71 @@ import {
               </div>
             </div>
   
-            <div class="admin-quick-actions">
-  
-              <button
-                class="admin-quick-action"
-                data-admin-navigation="admin-registration-requests"
-                type="button"
-              >
-                <span class="admin-quick-action-icon">
-                  ▣
-                </span>
-  
-                <span>
-                  <strong>
-                    مراجعة طلبات التسجيل
-                  </strong>
-  
-                  <small>
-                    قبول أو رفض طلبات المنشآت الجديدة.
-                  </small>
-                </span>
-              </button>
-  
-  
-              <div class="admin-quick-action disabled">
-  
-                <span class="admin-quick-action-icon">
-                  ◫
-                </span>
-  
-                <span>
-                  <strong>
-                    إدارة المنشآت
-                  </strong>
-  
-                  <small>
-                    ستتم إضافتها في الخطوة القادمة.
-                  </small>
-                </span>
-  
-              </div>
-  
-  
-              <div class="admin-quick-action disabled">
-  
-                <span class="admin-quick-action-icon">
-                  ◉
-                </span>
-  
-                <span>
-                  <strong>
-                    إدارة الاشتراكات
-                  </strong>
-  
-                  <small>
-                    ستتم إضافتها بعد صفحة الباقات.
-                  </small>
-                </span>
-  
-              </div>
-  
-            </div>
+        <div class="admin-quick-actions">
+
+        <button
+            class="admin-quick-action"
+            data-admin-navigation="admin-registration-requests"
+            type="button"
+        >
+            <span class="admin-quick-action-icon">
+            ▣
+            </span>
+
+            <span>
+            <strong>
+                مراجعة طلبات التسجيل
+            </strong>
+
+            <small>
+                قبول أو رفض طلبات المنشآت الجديدة.
+            </small>
+            </span>
+        </button>
+
+
+        <button
+            class="admin-quick-action"
+            data-admin-navigation="admin-companies"
+            type="button"
+        >
+            <span class="admin-quick-action-icon">
+            ◫
+            </span>
+
+            <span>
+            <strong>
+                إدارة المنشآت
+            </strong>
+
+            <small>
+                مراجعة حسابات المنشآت وحالاتها.
+            </small>
+            </span>
+        </button>
+
+
+        <button
+            class="admin-quick-action"
+            data-admin-navigation="admin-subscriptions"
+            type="button"
+        >
+            <span class="admin-quick-action-icon">
+            ◉
+            </span>
+
+            <span>
+            <strong>
+                إدارة الاشتراكات
+            </strong>
+
+            <small>
+                مراجعة طلبات تغيير باقات المنشآت.
+            </small>
+            </span>
+        </button>
+
+        </div>
   
           </article>
   

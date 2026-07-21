@@ -41,6 +41,11 @@ import {
 } from "./pages/transactions.js";
 
 import {
+  renderSubscriptionsPage,
+  initializeSubscriptionsPage,
+} from "./pages/subscriptions.js";
+
+import {
   renderRecommendationsPage,
   initializeRecommendationsPage,
 } from "./pages/recommendations.js";
@@ -66,6 +71,11 @@ import {
 } from "./pages/admin-companies.js";
 
 import {
+  renderAdminSubscriptionsPage,
+  initializeAdminSubscriptionsPage,
+} from "./pages/admin-subscriptions.js";
+
+import {
   getCurrentUser,
   logout,
 } from "./services/auth-service.js";
@@ -82,6 +92,7 @@ const adminPages = [
   "admin-dashboard",
   "admin-registration-requests",
   "admin-companies",
+  "admin-subscriptions",
 ];
 
 const companyPages = [
@@ -89,6 +100,7 @@ const companyPages = [
   "marketplace",
   "my-services",
   "transactions",
+  "subscriptions",
   "recommendations",
   "platform-guide",
 ];
@@ -333,6 +345,22 @@ function renderActivePage() {
     return;
   }
 
+  if (
+    activePage === "subscriptions"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderSubscriptionsPage(
+        currentUser,
+      );
+  
+    initializeSubscriptionsPage({
+      currentUser,
+    });
+  
+    return;
+  }
+
 
   if (
     activePage === "recommendations"
@@ -384,6 +412,18 @@ function renderActivePage() {
       renderAdminCompaniesPage();
   
     initializeAdminCompaniesPage();
+  
+    return;
+  }
+
+  if (
+    activePage === "admin-subscriptions"
+    && currentUser?.role === "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderAdminSubscriptionsPage();
+  
+    initializeAdminSubscriptionsPage();
   
     return;
   }

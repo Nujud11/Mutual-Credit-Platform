@@ -20,6 +20,11 @@ const companyNavigationItems = [
     icon: "⇄",
   },
   {
+    id: "subscriptions",
+    label: "الاشتراكات",
+    icon: "◉",
+  },
+  {
     id: "recommendations",
     label: "الفرص الذكية",
     icon: "✦",
@@ -47,6 +52,11 @@ const adminNavigationItems = [
     id: "admin-companies",
     label: "إدارة المنشآت",
     icon: "▥",
+  },
+  {
+    id: "admin-subscriptions",
+    label: "إدارة الاشتراكات",
+    icon: "◉",
   },
 ];
 

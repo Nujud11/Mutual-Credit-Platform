@@ -78,9 +78,9 @@ import {
 
       accountStatus: "pending",
       
-      subscriptionPlan: "starter",
+      subscriptionPlan: "basic",
       
-      subscriptionStatus: "inactive",
+      subscriptionStatus: "active",
       
       subscriptionStart: null,
       

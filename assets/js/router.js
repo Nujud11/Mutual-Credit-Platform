@@ -24,6 +24,12 @@ const pageInformation = {
       description: "توصيات ذكية تساعد شركتك على تحسين رصيدها",
     },
 
+    subscriptions: {
+      title: "الاشتراكات",
+      description:
+        "استعرض باقات مقاصة وتابع اشتراك منشأتك",
+    },
+
     "platform-guide": {
       title: "دليل المنصة",
       description: "تعرف على فكرة مقاصة وآلية عملها ورصيد MQ",
@@ -44,6 +50,11 @@ const pageInformation = {
       title: "إدارة المنشآت",
       description:
         "إدارة حسابات المنشآت وحالاتها داخل المنصة",
+    },
+    "admin-subscriptions": {
+      title: "إدارة الاشتراكات",
+      description:
+        "مراجعة طلبات الباقات وإدارة اشتراكات المنشآت",
     },
 
 
