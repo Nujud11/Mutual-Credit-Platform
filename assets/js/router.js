@@ -28,6 +28,14 @@ const pageInformation = {
       title: "دليل المنصة",
       description: "تعرف على فكرة مقاصة وآلية عملها ورصيد MQ",
     },
+
+    "admin-registration-requests": {
+      title: "طلبات تسجيل المنشآت",
+      description:
+        "مراجعة طلبات الانضمام واعتماد حسابات المنشآت",
+    },
+
+
       
   };
   

@@ -54,6 +54,11 @@ import {
     renderPlatformGuidePage,
     initializePlatformGuidePage,
   } from "./pages/platform-guide.js";
+
+  import {
+    renderAdminRegistrationRequestsPage,
+    initializeAdminRegistrationRequestsPage,
+  } from "./pages/admin-registration-requests.js";
   
   
   let activePage = "dashboard";
@@ -269,6 +274,19 @@ import {
           renderPlatformGuidePage();
       
         initializePlatformGuidePage();
+      
+        return;
+      }
+
+
+      if (
+        activePage
+        === "admin-registration-requests"
+      ) {
+        pageContentElement.innerHTML =
+          renderAdminRegistrationRequestsPage();
+      
+        initializeAdminRegistrationRequestsPage();
       
         return;
       }

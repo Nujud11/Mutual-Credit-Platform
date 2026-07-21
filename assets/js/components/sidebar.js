@@ -24,11 +24,17 @@ const navigationItems = [
       label: "الفرص الذكية",
       icon: "✦",
     },
-    
+
     {
       id: "platform-guide",
       label: "دليل المنصة",
       icon: "◉",
+    },
+
+    {
+      id: "admin-registration-requests",
+      label: "طلبات التسجيل",
+      icon: "▣",
     },
 
   ];
