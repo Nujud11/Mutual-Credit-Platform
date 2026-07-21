@@ -25,7 +25,7 @@ import {
     "companies";
 
   const SERVICES_COLLECTION =
-  "services";
+    "services";
   
   
   export async function createTransaction(
@@ -263,15 +263,22 @@ import {
     const transactionData =
       transactionSnapshot.data();
   
-    /*
-     * عند رفض الطلب لا نحتاج متابعة
-     * المعاملة، لذلك نسمح بتسجيل الرفض.
-     * أما القبول فيتطلب نشاط الطرفين.
-     */
+      /*
+        * عند قبول الطلب نتحقق من:
+        * 1. أن الشركتين نشطتان.
+        * 2. أن الخدمة ما زالت نشطة.
+        *
+        * عند رفض الطلب نسمح بالرفض
+        * حتى لو كانت الخدمة متوقفة.
+        */
     if (newStatus === "accepted") {
       await ensureCompaniesAreActive(
         transactionData.buyerCompanyId,
         transactionData.sellerCompanyId,
+      );
+    
+      await ensureServiceIsActive(
+        transactionData.serviceId,
       );
     }
   
@@ -340,6 +347,47 @@ import {
     }
   }
   
+  async function ensureServiceIsActive(
+    serviceId,
+  ) {
+    if (!serviceId) {
+      throw new Error(
+        "service-not-found",
+      );
+    }
+  
+    const serviceReference =
+      doc(
+        db,
+        SERVICES_COLLECTION,
+        serviceId,
+      );
+  
+    const serviceSnapshot =
+      await getDoc(
+        serviceReference,
+      );
+  
+    if (!serviceSnapshot.exists()) {
+      throw new Error(
+        "service-not-found",
+      );
+    }
+  
+    const serviceData =
+      serviceSnapshot.data();
+  
+    if (
+      serviceData.status
+        !== "active"
+    ) {
+      throw new Error(
+        "service-not-active",
+      );
+    }
+  
+    return serviceData;
+  }
   
   export async function completeTransaction(
     transactionId,
