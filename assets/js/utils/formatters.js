@@ -17,7 +17,7 @@ export function formatNumber(value) {
   
     return `${sign}${formatNumber(
       numericValue,
-    )} وحدة`;
+    )} MQ`;
   }
   
   

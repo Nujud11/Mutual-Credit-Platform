@@ -364,7 +364,7 @@ import {
               ${formatNumber(
                 service.price,
               )}
-              وحدة
+              MQ
             </strong>
           </div>
   
@@ -410,7 +410,7 @@ import {
   
             const shouldCreateRequest =
               window.confirm(
-                `هل تريد طلب خدمة "${selectedService.title}" بقيمة ${selectedService.price} وحدة؟`,
+                `هل تريد طلب خدمة "${selectedService.title}" بقيمة ${selectedService.price} MQ`,
               );
   
             if (!shouldCreateRequest) {

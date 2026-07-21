@@ -521,7 +521,7 @@ import {
                   recommendation
                     .servicePrice,
                 )}
-                وحدة
+                MQ
               </strong>
             </div>
   
@@ -626,7 +626,7 @@ import {
   }) {
     const shouldCreateRequest =
       window.confirm(
-        `هل تريد طلب خدمة "${recommendation.serviceName}" من ${recommendation.companyName} بقيمة ${recommendation.servicePrice} وحدة؟`,
+        `هل تريد طلب خدمة "${recommendation.serviceName}" من ${recommendation.companyName} بقيمة ${recommendation.servicePrice} MQ`,
       );
   
     if (!shouldCreateRequest) {

@@ -399,7 +399,7 @@ import {
             ${formatNumber(
               transaction.amount,
             )}
-            وحدة
+            MQ
           </strong>
         </div>
   

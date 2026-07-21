@@ -543,7 +543,7 @@ import {
             ${formatNumber(
               service.price,
             )}
-            وحدة
+            MQ
           </strong>
         </div>
   
