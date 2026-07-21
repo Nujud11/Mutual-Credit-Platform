@@ -56,6 +56,11 @@ import {
 } from "./pages/admin-registration-requests.js";
 
 import {
+  renderAdminDashboardPage,
+  initializeAdminDashboardPage,
+} from "./pages/admin-dashboard.js";
+
+import {
   getCurrentUser,
   logout,
 } from "./services/auth-service.js";
@@ -69,6 +74,7 @@ const COMPANY_DEFAULT_PAGE =
 
 
 const adminPages = [
+  "admin-dashboard",
   "admin-registration-requests",
 ];
 
@@ -346,6 +352,21 @@ function renderActivePage() {
 
     initializePlatformGuidePage();
 
+    return;
+  }
+
+  if (
+    activePage === "admin-dashboard"
+    && currentUser?.role === "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderAdminDashboardPage();
+  
+    initializeAdminDashboardPage({
+      onNavigate:
+        navigateToPage,
+    });
+  
     return;
   }
 

@@ -34,6 +34,11 @@ const companyNavigationItems = [
 
 const adminNavigationItems = [
   {
+    id: "admin-dashboard",
+    label: "لوحة التحكم",
+    icon: "⌂",
+  },
+  {
     id: "admin-registration-requests",
     label: "طلبات التسجيل",
     icon: "▣",

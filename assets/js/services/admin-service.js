@@ -37,6 +37,83 @@ import {
       }),
     );
   }
+
+  export async function getAdminDashboardData() {
+    const companiesSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "companies",
+        ),
+      );
+  
+    const companies =
+      companiesSnapshot.docs.map(
+        (companyDocument) => ({
+          id: companyDocument.id,
+          ...companyDocument.data(),
+        }),
+      );
+  
+    const companyAccounts =
+      companies.filter(
+        (company) =>
+          company.role !== "admin",
+      );
+  
+    const activeCompanies =
+      companyAccounts.filter(
+        (company) =>
+          company.accountStatus === "active",
+      );
+  
+    const pendingCompanies =
+      companyAccounts.filter(
+        (company) =>
+          company.accountStatus === "pending",
+      );
+  
+    const rejectedCompanies =
+      companyAccounts.filter(
+        (company) =>
+          company.accountStatus === "rejected",
+      );
+  
+    const latestRequests =
+      [...companyAccounts]
+        .sort(
+          (firstCompany, secondCompany) => {
+            const firstDate =
+              new Date(
+                firstCompany.createdAt ?? 0,
+              ).getTime();
+  
+            const secondDate =
+              new Date(
+                secondCompany.createdAt ?? 0,
+              ).getTime();
+  
+            return secondDate - firstDate;
+          },
+        )
+        .slice(0, 5);
+  
+    return {
+      totalCompanies:
+        companyAccounts.length,
+  
+      activeCompanies:
+        activeCompanies.length,
+  
+      pendingCompanies:
+        pendingCompanies.length,
+  
+      rejectedCompanies:
+        rejectedCompanies.length,
+  
+      latestRequests,
+    };
+  }
   
   
   export async function approveCompanyRequest(
