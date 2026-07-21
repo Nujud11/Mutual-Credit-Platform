@@ -409,7 +409,7 @@ export function renderPlatformGuidePage() {
   
               ${renderFeatureItem(
                 "لا يحتاج إلى محفظة",
-                "لا يتطلب MetaMask أو أي محفظة خارجية.",
+                "لا يتطلب أي محفظة خارجية.",
               )}
   
               ${renderFeatureItem(
