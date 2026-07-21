@@ -166,3 +166,108 @@ import {
       success: true,
     };
   }
+
+  export async function getAllCompanies() {
+    const companiesSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "companies",
+        ),
+      );
+  
+    return companiesSnapshot.docs
+      .map(
+        (companyDocument) => ({
+          id: companyDocument.id,
+          ...companyDocument.data(),
+        }),
+      )
+      .filter(
+        (company) =>
+          company.role !== "admin",
+      )
+      .sort(
+        (firstCompany, secondCompany) => {
+          const firstDate =
+            getDateTimestamp(
+              firstCompany.createdAt,
+            );
+  
+          const secondDate =
+            getDateTimestamp(
+              secondCompany.createdAt,
+            );
+  
+          return secondDate - firstDate;
+        },
+      );
+  }
+  
+  
+  export async function updateCompanyAccountStatus(
+    companyId,
+    accountStatus,
+  ) {
+    const allowedStatuses = [
+      "active",
+      "pending",
+      "rejected",
+      "suspended",
+    ];
+  
+    if (
+      !allowedStatuses.includes(
+        accountStatus,
+      )
+    ) {
+      throw new Error(
+        "حالة الحساب المطلوبة غير صالحة.",
+      );
+    }
+  
+    const companyReference =
+      doc(
+        db,
+        "companies",
+        companyId,
+      );
+  
+    await updateDoc(
+      companyReference,
+      {
+        accountStatus,
+        statusUpdatedAt:
+          new Date().toISOString(),
+      },
+    );
+  }
+  
+  
+  function getDateTimestamp(
+    dateValue,
+  ) {
+    if (!dateValue) {
+      return 0;
+    }
+  
+    if (
+      typeof dateValue?.toDate
+      === "function"
+    ) {
+      return dateValue
+        .toDate()
+        .getTime();
+    }
+  
+    const parsedDate =
+      new Date(
+        dateValue,
+      );
+  
+    return Number.isNaN(
+      parsedDate.getTime(),
+    )
+      ? 0
+      : parsedDate.getTime();
+  }

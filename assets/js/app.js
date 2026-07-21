@@ -61,6 +61,11 @@ import {
 } from "./pages/admin-dashboard.js";
 
 import {
+  renderAdminCompaniesPage,
+  initializeAdminCompaniesPage,
+} from "./pages/admin-companies.js";
+
+import {
   getCurrentUser,
   logout,
 } from "./services/auth-service.js";
@@ -76,6 +81,7 @@ const COMPANY_DEFAULT_PAGE =
 const adminPages = [
   "admin-dashboard",
   "admin-registration-requests",
+  "admin-companies",
 ];
 
 const companyPages = [
@@ -366,6 +372,18 @@ function renderActivePage() {
       onNavigate:
         navigateToPage,
     });
+  
+    return;
+  }
+
+  if (
+    activePage === "admin-companies"
+    && currentUser?.role === "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderAdminCompaniesPage();
+  
+    initializeAdminCompaniesPage();
   
     return;
   }

@@ -43,6 +43,11 @@ const adminNavigationItems = [
     label: "طلبات التسجيل",
     icon: "▣",
   },
+  {
+    id: "admin-companies",
+    label: "إدارة المنشآت",
+    icon: "▥",
+  },
 ];
 
 

@@ -40,6 +40,11 @@ const pageInformation = {
       description:
         "نظرة عامة على المنشآت وطلبات الانضمام إلى المنصة",
     },
+    "admin-companies": {
+      title: "إدارة المنشآت",
+      description:
+        "إدارة حسابات المنشآت وحالاتها داخل المنصة",
+    },
 
 
       
