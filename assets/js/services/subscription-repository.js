@@ -5,8 +5,10 @@ import {
   import {
     addDoc,
     collection,
+    doc,
     getDocs,
     query,
+    runTransaction,
     where,
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
   
@@ -159,6 +161,239 @@ import {
     return {
       id: requestReference.id,
       ...requestData,
+    };
+  }
+
+  export async function getAllSubscriptionRequests() {
+    const requestsSnapshot =
+      await getDocs(
+        collection(
+          db,
+          "subscriptionRequests",
+        ),
+      );
+  
+    return requestsSnapshot.docs
+      .map(
+        (requestDocument) => ({
+          id: requestDocument.id,
+          ...requestDocument.data(),
+        }),
+      )
+      .sort(
+        (
+          firstRequest,
+          secondRequest,
+        ) => {
+          const firstDate =
+            getDateTimestamp(
+              firstRequest.createdAt,
+            );
+  
+          const secondDate =
+            getDateTimestamp(
+              secondRequest.createdAt,
+            );
+  
+          return secondDate - firstDate;
+        },
+      );
+  }
+
+  export async function approveSubscriptionRequest(
+    requestId,
+  ) {
+    if (!requestId) {
+      throw new Error(
+        "subscription-request-id-required",
+      );
+    }
+  
+    const requestReference =
+      doc(
+        db,
+        "subscriptionRequests",
+        requestId,
+      );
+  
+    await runTransaction(
+      db,
+      async (transaction) => {
+        const requestSnapshot =
+          await transaction.get(
+            requestReference,
+          );
+  
+        if (!requestSnapshot.exists()) {
+          throw new Error(
+            "subscription-request-not-found",
+          );
+        }
+  
+        const requestData =
+          requestSnapshot.data();
+  
+        if (
+          requestData.status
+          !== "pending"
+        ) {
+          throw new Error(
+            "subscription-request-already-reviewed",
+          );
+        }
+  
+        if (
+          !allowedPlans.includes(
+            requestData.requestedPlan,
+          )
+        ) {
+          throw new Error(
+            "invalid-requested-plan",
+          );
+        }
+  
+        if (!requestData.companyId) {
+          throw new Error(
+            "company-id-required",
+          );
+        }
+  
+        const companyReference =
+          doc(
+            db,
+            "companies",
+            requestData.companyId,
+          );
+  
+        const companySnapshot =
+          await transaction.get(
+            companyReference,
+          );
+  
+        if (!companySnapshot.exists()) {
+          throw new Error(
+            "company-not-found",
+          );
+        }
+  
+        const now =
+          new Date().toISOString();
+  
+        transaction.update(
+          companyReference,
+          {
+            subscriptionPlan:
+              requestData.requestedPlan,
+  
+            subscriptionStatus:
+              "active",
+  
+            subscriptionStart:
+              now,
+  
+            subscriptionEnd:
+              null,
+  
+            subscriptionUpdatedAt:
+              now,
+          },
+        );
+  
+        transaction.update(
+          requestReference,
+          {
+            status:
+              "approved",
+  
+            reviewedAt:
+              now,
+  
+            updatedAt:
+              now,
+  
+            rejectionReason:
+              null,
+          },
+        );
+      },
+    );
+  
+    return {
+      success: true,
+    };
+  }
+
+
+  export async function rejectSubscriptionRequest(
+    requestId,
+    rejectionReason = "",
+  ) {
+    if (!requestId) {
+      throw new Error(
+        "subscription-request-id-required",
+      );
+    }
+  
+    const requestReference =
+      doc(
+        db,
+        "subscriptionRequests",
+        requestId,
+      );
+  
+    await runTransaction(
+      db,
+      async (transaction) => {
+        const requestSnapshot =
+          await transaction.get(
+            requestReference,
+          );
+  
+        if (!requestSnapshot.exists()) {
+          throw new Error(
+            "subscription-request-not-found",
+          );
+        }
+  
+        const requestData =
+          requestSnapshot.data();
+  
+        if (
+          requestData.status
+          !== "pending"
+        ) {
+          throw new Error(
+            "subscription-request-already-reviewed",
+          );
+        }
+  
+        const now =
+          new Date().toISOString();
+  
+        transaction.update(
+          requestReference,
+          {
+            status:
+              "rejected",
+  
+            reviewedAt:
+              now,
+  
+            updatedAt:
+              now,
+  
+            rejectionReason:
+              String(
+                rejectionReason
+                ?? "",
+              ).trim(),
+          },
+        );
+      },
+    );
+  
+    return {
+      success: true,
     };
   }
   

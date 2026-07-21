@@ -565,6 +565,412 @@
     color:
       #b45309;
   }
+
+  .admin-subscription-results-summary {
+    padding: 16px 0;
+  
+    color:
+      var(--color-text-secondary);
+  
+    font-size: 13px;
+  }
+  
+  
+  .admin-subscription-requests-list {
+    display: grid;
+    gap: 16px;
+  }
+  
+  
+  .admin-subscription-request-card {
+    padding: 22px;
+  
+    border: 1px solid
+      var(--color-border);
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      var(--color-background);
+  }
+  
+  
+  .admin-subscription-request-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  
+  
+  .admin-subscription-company {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+  
+  
+  .admin-subscription-company-avatar {
+    flex-shrink: 0;
+  
+    width: 48px;
+    height: 48px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius:
+      var(--radius-medium);
+  
+    background:
+      linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-ai)
+      );
+  
+    color: white;
+  
+    font-size: 19px;
+    font-weight: 900;
+  }
+  
+  
+  .admin-subscription-company p {
+    margin-top: 5px;
+  
+    color:
+      var(--color-text-secondary);
+  
+    font-size: 13px;
+  }
+  
+  
+  .admin-subscription-status {
+    display: inline-flex;
+  
+    padding: 7px 11px;
+  
+    border-radius: 999px;
+  
+    font-size: 12px;
+    font-weight: 800;
+  }
+  
+  
+  .admin-subscription-status.pending {
+    background:
+      var(--color-warning-light);
+  
+    color: #b45309;
+  }
+  
+  
+  .admin-subscription-status.approved {
+    background:
+      var(--color-success-light);
+  
+    color:
+      var(--color-success);
+  }
+  
+  
+  .admin-subscription-status.rejected {
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  }
+  
+  
+  .admin-subscription-status.unknown {
+    background: #f1f5f9;
+  
+    color:
+      var(--color-text-secondary);
+  }
+  
+  
+  .admin-subscription-request-details {
+    display: grid;
+  
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  
+    gap: 12px;
+  
+    margin-top: 20px;
+  }
+  
+  
+  .admin-subscription-information-item {
+    padding: 14px;
+  
+    border: 1px solid
+      var(--color-border);
+  
+    border-radius:
+      var(--radius-medium);
+  
+    background:
+      var(--color-surface);
+  }
+  
+  
+  .admin-subscription-information-item span,
+  .admin-subscription-information-item small {
+    display: block;
+  
+    color:
+      var(--color-text-secondary);
+  
+    font-size: 12px;
+  }
+  
+  
+  .admin-subscription-information-item strong {
+    display: block;
+  
+    margin-top: 7px;
+  }
+  
+  
+  .admin-subscription-information-item small {
+    margin-top: 5px;
+  }
+  
+  
+  .admin-subscription-information-item--requested {
+    border-color:
+      #c4b5fd;
+  
+    background:
+      #faf5ff;
+  }
+  
+  
+  .admin-subscription-information-item--requested
+  strong {
+    color:
+      var(--color-ai);
+  }
+  
+  
+  .admin-subscription-request-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  
+    margin-top: 20px;
+    padding-top: 18px;
+  
+    border-top: 1px solid
+      var(--color-border);
+  }
+  
+  
+  .admin-subscription-action-button {
+    padding: 10px 16px;
+  
+    border: none;
+  
+    border-radius:
+      var(--radius-medium);
+  
+    font: inherit;
+    font-weight: 800;
+  
+    cursor: pointer;
+  }
+  
+  
+  .admin-subscription-action-button.approve {
+    background:
+      var(--color-success);
+  
+    color: white;
+  }
+  
+  
+  .admin-subscription-action-button.reject {
+    border: 1px solid
+      #fecaca;
+  
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  }
+  
+  
+  .admin-subscription-action-button:disabled {
+    opacity: 0.65;
+  
+    cursor: not-allowed;
+  }
+  
+  
+  .admin-subscription-reviewed-note {
+    margin-top: 20px;
+    padding-top: 17px;
+  
+    border-top: 1px solid
+      var(--color-border);
+  
+    color:
+      var(--color-text-secondary);
+  
+    font-size: 13px;
+  }
+  
+  
+  .admin-subscription-rejection-reason {
+    margin-top: 14px;
+    padding: 14px;
+  
+    border: 1px solid
+      #fecaca;
+  
+    border-radius:
+      var(--radius-medium);
+  
+    background:
+      var(--color-danger-light);
+  }
+  
+  
+  .admin-subscription-rejection-reason span {
+    color:
+      var(--color-danger);
+  
+    font-size: 12px;
+    font-weight: 800;
+  }
+  
+  
+  .admin-subscription-rejection-reason p {
+    margin-top: 6px;
+  
+    color: #991b1b;
+  
+    line-height: 1.7;
+  }
+  
+  
+  .admin-subscription-stat-card.loading {
+    min-height: 86px;
+  }
+  
+  
+  .admin-subscription-loading-icon {
+    width: 44px;
+    height: 44px;
+  
+    border-radius:
+      var(--radius-medium);
+  
+    background: #e2e8f0;
+  
+    animation:
+      subscription-pulse
+      1.3s
+      infinite;
+  }
+  
+  
+  .admin-subscription-loading-content {
+    flex: 1;
+  }
+  
+  
+  .admin-subscription-loading-line {
+    border-radius: 999px;
+  
+    background: #e2e8f0;
+  
+    animation:
+      subscription-pulse
+      1.3s
+      infinite;
+  }
+  
+  
+  .admin-subscription-loading-line.small {
+    width: 75%;
+    height: 10px;
+  }
+  
+  
+  .admin-subscription-loading-line.large {
+    width: 45%;
+    height: 20px;
+  
+    margin-top: 10px;
+  }
+  
+  
+  .admin-subscriptions-error-card {
+    grid-column: 1 / -1;
+  
+    padding: 18px;
+  
+    border: 1px solid #fecaca;
+  
+    border-radius:
+      var(--radius-large);
+  
+    background:
+      var(--color-danger-light);
+  
+    color:
+      var(--color-danger);
+  
+    text-align: center;
+    font-weight: 800;
+  }
+  
+  
+  @keyframes subscription-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+  
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  
+  @media (max-width: 1100px) {
+    .admin-subscription-request-details {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  
+  @media (max-width: 650px) {
+    .admin-subscription-request-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .admin-subscription-request-details {
+      grid-template-columns: 1fr;
+    }
+  
+    .admin-subscription-request-actions {
+      flex-direction: column;
+    }
+  
+    .admin-subscription-action-button {
+      width: 100%;
+    }
+  }
   
   
   @media (max-width: 1100px) {
