@@ -2,6 +2,7 @@ import {
     createService,
     deleteService,
     getCompanyServices,
+    updateServiceStatus,
   } from "../services/service-repository.js";
   
   import {
@@ -214,7 +215,7 @@ import {
             </div>
   
             <p>
-              الخدمات النشطة التي تقدمها منشأتك.
+              جميع الخدمات التي تقدمها منشآتك النشطة والمتوقفة مؤقتًا.
             </p>
           </div>
   
@@ -466,6 +467,10 @@ import {
         services
           .map(renderServiceCard)
           .join("");
+
+      attachServiceStatusEvents(
+        companyId,
+      );
   
       attachDeleteEvents(
         companyId,
@@ -486,8 +491,40 @@ import {
   function renderServiceCard(
     service,
   ) {
+    const isActive =
+      service.status !== "inactive";
+  
+    const statusLabel =
+      isActive
+        ? "نشطة"
+        : "متوقفة مؤقتًا";
+  
+    const statusClass =
+      isActive
+        ? "active"
+        : "inactive";
+  
+    const nextStatus =
+      isActive
+        ? "inactive"
+        : "active";
+  
+    const toggleButtonLabel =
+      isActive
+        ? "إيقاف مؤقت"
+        : "إعادة التفعيل";
+  
     return `
-      <article class="service-card">
+      <article
+        class="
+          service-card
+          ${
+            isActive
+              ? ""
+              : "service-card--inactive"
+          }
+        "
+      >
   
         <div class="service-card-header">
   
@@ -498,9 +535,30 @@ import {
           </div>
   
           <div class="service-card-actions">
-            <span class="service-status">
-              نشطة
+  
+            <span
+              class="
+                service-status
+                service-status--${statusClass}
+              "
+            >
+              ${statusLabel}
             </span>
+  
+            <button
+              class="
+                toggle-service-status-button
+                toggle-service-status-button--${statusClass}
+              "
+              data-service-id="${service.id}"
+              data-service-next-status="${nextStatus}"
+              data-service-title="${escapeHtml(
+                service.title,
+              )}"
+              type="button"
+            >
+              ${toggleButtonLabel}
+            </button>
   
             <button
               class="delete-service-button"
@@ -510,6 +568,7 @@ import {
             >
               حذف
             </button>
+  
           </div>
   
         </div>
@@ -549,6 +608,87 @@ import {
   
       </article>
     `;
+  }
+
+
+  function attachServiceStatusEvents(
+    companyId,
+  ) {
+    const statusButtons =
+      document.querySelectorAll(
+        ".toggle-service-status-button",
+      );
+  
+    statusButtons.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          async () => {
+            const serviceId =
+              button.dataset.serviceId;
+  
+            const nextStatus =
+              button.dataset
+                .serviceNextStatus;
+  
+            const serviceTitle =
+              button.dataset.serviceTitle
+              || "الخدمة";
+  
+            const isStopping =
+              nextStatus === "inactive";
+  
+            const confirmationMessage =
+              isStopping
+                ? `هل تريد إيقاف خدمة "${serviceTitle}" مؤقتًا؟`
+                : `هل تريد إعادة تفعيل خدمة "${serviceTitle}"؟`;
+  
+            const shouldContinue =
+              window.confirm(
+                confirmationMessage,
+              );
+  
+            if (!shouldContinue) {
+              return;
+            }
+  
+            const originalText =
+              button.textContent;
+  
+            button.disabled = true;
+  
+            button.textContent =
+              "جاري الحفظ...";
+  
+            try {
+              await updateServiceStatus(
+                serviceId,
+                nextStatus,
+              );
+  
+              await loadServices(
+                companyId,
+              );
+  
+            } catch (error) {
+              console.error(
+                "تعذر تحديث حالة الخدمة:",
+                error,
+              );
+  
+              window.alert(
+                "تعذر تحديث حالة الخدمة. حاول مرة أخرى.",
+              );
+  
+              button.disabled = false;
+  
+              button.textContent =
+                originalText;
+            }
+          },
+        );
+      },
+    );
   }
   
   

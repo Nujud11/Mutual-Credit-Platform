@@ -257,6 +257,7 @@
   .service-card-actions {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
   }
   
@@ -398,6 +399,52 @@
   
     color:
       var(--color-danger);
+  }
+
+  .service-card--inactive {
+    background: #faf9fb;
+    opacity: 0.82;
+  }
+  
+  .service-status--active {
+    background: #e7f8ef;
+    color: #24815a;
+  }
+  
+  .service-status--inactive {
+    background: #edf2ff;
+    color: #4965aa;
+  }
+  
+  .toggle-service-status-button {
+    min-height: 34px;
+    padding: 0 11px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  
+  .toggle-service-status-button--active {
+    border: 1px solid #d1daf4;
+    background: #f1f4ff;
+    color: #4965aa;
+  }
+  
+  .toggle-service-status-button--inactive {
+    border: 1px solid #bce7d2;
+    background: #eaf9f1;
+    color: #247654;
+  }
+  
+  .toggle-service-status-button:hover {
+    transform: translateY(-1px);
+  }
+  
+  .toggle-service-status-button:disabled {
+    cursor: wait;
+    opacity: 0.6;
   }
   
   

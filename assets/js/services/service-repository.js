@@ -8,6 +8,7 @@ import {
     deleteDoc,
     doc,
     getDocs,
+    updateDoc,
     query,
     serverTimestamp,
     where,
@@ -121,6 +122,37 @@ import {
         SERVICES_COLLECTION,
         serviceId,
       ),
+    );
+  }
+
+  export async function updateServiceStatus(
+    serviceId,
+    status,
+  ) {
+    const allowedStatuses = [
+      "active",
+      "inactive",
+    ];
+  
+    if (
+      !allowedStatuses.includes(status)
+    ) {
+      throw new Error(
+        "invalid-service-status",
+      );
+    }
+  
+    await updateDoc(
+      doc(
+        db,
+        SERVICES_COLLECTION,
+        serviceId,
+      ),
+      {
+        status,
+        updatedAt:
+          serverTimestamp(),
+      },
     );
   }
 
