@@ -548,6 +548,23 @@
   
     line-height: 1.8;
   }
+
+  .subscription-plan-button:disabled {
+    opacity: 0.75;
+  
+    cursor: not-allowed;
+  }
+  
+  .subscription-plan-button.pending {
+    border: 1px solid
+      #f59e0b;
+  
+    background:
+      var(--color-warning-light);
+  
+    color:
+      #b45309;
+  }
   
   
   @media (max-width: 1100px) {

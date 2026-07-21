@@ -1,3 +1,8 @@
+import {
+    createSubscriptionRequest,
+    getPendingSubscriptionRequest,
+  } from "../services/subscription-repository.js";
+
 const subscriptionPlans = [
     {
       id: "basic",
@@ -147,7 +152,177 @@ const subscriptionPlans = [
   }
   
   
-  export function initializeSubscriptionsPage() {
+  export async function initializeSubscriptionsPage({
+    currentUser,
+  }) {
+    const requestButtons =
+      document.querySelectorAll(
+        "[data-subscription-plan]",
+      );
+  
+    setSubscriptionButtonsDisabled(
+      true,
+    );
+  
+    try {
+      const pendingRequest =
+        await getPendingSubscriptionRequest(
+          currentUser.id,
+        );
+  
+      if (pendingRequest) {
+        showPendingRequestMessage(
+          pendingRequest,
+        );
+  
+        updateButtonsForPendingRequest(
+          pendingRequest,
+        );
+  
+        return;
+      }
+  
+      setSubscriptionButtonsDisabled(
+        false,
+      );
+  
+    } catch (error) {
+      console.error(
+        "تعذر التحقق من طلبات الاشتراك:",
+        error,
+      );
+  
+      setSubscriptionButtonsDisabled(
+        false,
+      );
+  
+      showSubscriptionsMessage(
+        "تعذر التحقق من طلبات الاشتراك السابقة. يمكنك المحاولة مرة أخرى.",
+        "error",
+      );
+    }
+  
+    requestButtons.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          async () => {
+            const requestedPlan =
+              button.dataset
+                .subscriptionPlan;
+  
+            await handleSubscriptionRequest({
+              currentUser,
+              requestedPlan,
+              button,
+            });
+          },
+        );
+      },
+    );
+  }
+
+  async function handleSubscriptionRequest({
+    currentUser,
+    requestedPlan,
+    button,
+  }) {
+    const currentPlan =
+      normalizePlan(
+        currentUser
+          ?.subscriptionPlan,
+      );
+  
+    const requestedPlanName =
+      getPlanName(
+        requestedPlan,
+      );
+  
+    const confirmed =
+      window.confirm(
+        `هل تريد إرسال طلب تغيير الباقة إلى "${requestedPlanName}"؟`,
+      );
+  
+    if (!confirmed) {
+      return;
+    }
+  
+    const originalButtonText =
+      button.textContent;
+  
+    setSubscriptionButtonsDisabled(
+      true,
+    );
+  
+    button.textContent =
+      "جاري إرسال الطلب...";
+  
+    hideSubscriptionsMessage();
+  
+    try {
+      const request =
+        await createSubscriptionRequest({
+          companyId:
+            currentUser.id,
+  
+          companyName:
+            currentUser.companyName,
+  
+          currentPlan,
+  
+          requestedPlan,
+        });
+  
+      showSubscriptionsMessage(
+        `تم إرسال طلب الاشتراك في "${requestedPlanName}" إلى إدارة المنصة بنجاح.`,
+        "success",
+      );
+  
+      updateButtonsForPendingRequest(
+        request,
+      );
+  
+    } catch (error) {
+      console.error(
+        "تعذر إرسال طلب الاشتراك:",
+        error,
+      );
+  
+      button.textContent =
+        originalButtonText;
+  
+      setSubscriptionButtonsDisabled(
+        false,
+      );
+  
+      showSubscriptionsMessage(
+        getSubscriptionErrorMessage(
+          error,
+        ),
+        "error",
+      );
+    }
+  }
+
+
+  function showPendingRequestMessage(
+    pendingRequest,
+  ) {
+    const requestedPlanName =
+      getPlanName(
+        pendingRequest.requestedPlan,
+      );
+  
+    showSubscriptionsMessage(
+      `لديك طلب معلق للانتقال إلى "${requestedPlanName}". لا يمكنك إرسال طلب آخر حتى تتم مراجعته من الإدارة.`,
+      "info",
+    );
+  }
+  
+  
+  function updateButtonsForPendingRequest(
+    pendingRequest,
+  ) {
     const requestButtons =
       document.querySelectorAll(
         "[data-subscription-plan]",
@@ -155,22 +330,93 @@ const subscriptionPlans = [
   
     requestButtons.forEach(
       (button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            const planId =
-              button.dataset
-                .subscriptionPlan;
+        button.disabled = true;
   
-            showSubscriptionsMessage(
-              `سيتم ربط طلب باقة "${getPlanName(
-                planId,
-              )}" بقاعدة البيانات في المرحلة التالية.`,
-              "info",
-            );
-          },
+        const isRequestedPlan =
+          button.dataset
+            .subscriptionPlan
+          === pendingRequest
+            .requestedPlan;
+  
+        button.textContent =
+          isRequestedPlan
+            ? "الطلب قيد المراجعة"
+            : "يوجد طلب معلق";
+  
+        button.classList.toggle(
+          "pending",
+          isRequestedPlan,
         );
       },
+    );
+  }
+  
+  
+  function setSubscriptionButtonsDisabled(
+    isDisabled,
+  ) {
+    const requestButtons =
+      document.querySelectorAll(
+        "[data-subscription-plan]",
+      );
+  
+    requestButtons.forEach(
+      (button) => {
+        button.disabled =
+          isDisabled;
+      },
+    );
+  }
+
+
+  function hideSubscriptionsMessage() {
+    const messageElement =
+      document.getElementById(
+        "subscriptions-message",
+      );
+  
+    if (!messageElement) {
+      return;
+    }
+  
+    messageElement.className =
+      "hidden";
+  
+    messageElement.textContent =
+      "";
+  }
+  
+  
+  function getSubscriptionErrorMessage(
+    error,
+  ) {
+    const errorCode =
+      error?.message
+      ?? error?.code;
+  
+    const messages = {
+      "company-id-required":
+        "تعذر تحديد حساب المنشأة.",
+  
+      "invalid-requested-plan":
+        "الباقة المطلوبة غير صالحة.",
+  
+      "same-subscription-plan":
+        "هذه هي باقتك الحالية بالفعل.",
+  
+      "pending-request-exists":
+        "لديك طلب اشتراك معلق بالفعل. انتظر مراجعة الإدارة قبل إرسال طلب جديد.",
+  
+      "permission-denied":
+        "لا تملك صلاحية إرسال طلب الاشتراك.",
+  
+      "unavailable":
+        "تعذر الاتصال بقاعدة البيانات. تحقق من اتصال الإنترنت.",
+    };
+  
+    return (
+      messages[errorCode]
+      ?? "تعذر إرسال طلب الاشتراك. حاول مرة أخرى."
     );
   }
   
