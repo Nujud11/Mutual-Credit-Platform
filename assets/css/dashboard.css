@@ -569,4 +569,126 @@
     .credit-usage-summary {
       flex-direction: column;
     }
+
+    /* =========================================
+      MQ Information Card
+    ========================================= */
+
+    .mq-info-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 24px;
+      border: 1px solid #ddd6fe;
+      border-radius: 18px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(239, 246, 255, 0.98),
+          rgba(245, 243, 255, 0.98)
+        );
+      box-shadow:
+        0 8px 24px
+        rgba(15, 23, 42, 0.05);
+    }
+
+    .mq-info-icon {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 17px;
+      color: #6d28d9;
+      background: #ede9fe;
+    }
+
+    .mq-info-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mq-info-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 7px;
+    }
+
+    .mq-info-heading h3 {
+      margin: 2px 0 0;
+      color: #0f172a;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .mq-info-label {
+      display: block;
+      color: #7c3aed;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mq-info-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 11px;
+      border-radius: 999px;
+      color: #6d28d9;
+      background: #ede9fe;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mq-info-content p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .mq-info-content strong {
+      color: #2563eb;
+      font-weight: 900;
+    }
+
+    .mq-info-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      padding: 0;
+      border: 0;
+      color: #2563eb;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mq-info-link:hover {
+      color: #7c3aed;
+    }
+
+    @media (max-width: 650px) {
+      .mq-info-card {
+        align-items: flex-start;
+        padding: 18px;
+      }
+
+      .mq-info-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+      }
+
+      .mq-info-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
   }
