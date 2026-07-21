@@ -9,30 +9,35 @@ import {
     return `
       <section class="admin-page">
   
-        <div class="admin-page-header">
-          <div>
-            <span class="admin-section-label">
-              إدارة المنشآت
+        <section class="admin-hero">
+
+        <div class="admin-hero-content">
+
+            <span class="admin-hero-label">
+            إدارة المنشآت
             </span>
-  
+
             <h2>
-              طلبات تسجيل المنشآت
+            طلبات تسجيل المنشآت
             </h2>
-  
+
             <p>
-              راجع بيانات المنشآت الجديدة
-              واتخذ قرار القبول أو الرفض.
+            راجع بيانات المنشآت الجديدة،
+            واتخذ قرار القبول أو الرفض
+            قبل تفعيل الحسابات داخل المنصة.
             </p>
-          </div>
-  
-          <button
-            id="refresh-registration-requests"
-            class="admin-secondary-button"
-            type="button"
-          >
-            تحديث الطلبات
-          </button>
+
         </div>
+
+        <button
+            id="refresh-registration-requests"
+            class="admin-hero-button"
+            type="button"
+        >
+            تحديث الطلبات
+        </button>
+
+        </section>
   
   
         <div class="admin-summary-grid">

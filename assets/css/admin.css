@@ -365,4 +365,83 @@
     .admin-reject-button {
       width: 100%;
     }
+
+    .admin-hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        min-height: 155px;
+        padding: 28px;
+        border-radius: 22px;
+        background:
+          linear-gradient(
+            120deg,
+            #182b63 0%,
+            #2557c7 55%,
+            #3267ef 100%
+          );
+        color: #ffffff;
+        box-shadow:
+          0 14px 30px
+          rgba(31, 70, 150, 0.14);
+      }
+      
+      .admin-hero-content {
+        max-width: 720px;
+      }
+      
+      .admin-hero-label {
+        display: inline-block;
+        margin-bottom: 8px;
+        color: #b891ff;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      
+      .admin-hero h2 {
+        margin: 0 0 10px;
+        color: #ffffff;
+        font-size: 30px;
+      }
+      
+      .admin-hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 15px;
+        line-height: 1.9;
+      }
+      
+      .admin-hero-button {
+        min-width: 150px;
+        min-height: 48px;
+        flex-shrink: 0;
+        padding: 0 20px;
+        border: 0;
+        border-radius: 13px;
+        background: #ffffff;
+        color: #2860df;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow:
+          0 8px 20px
+          rgba(14, 31, 78, 0.14);
+      }
+      
+      .admin-hero-button:hover {
+        transform: translateY(-1px);
+        background: #f7f9ff;
+      }
+      
+      @media (max-width: 700px) {
+        .admin-hero {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      
+        .admin-hero-button {
+          width: 100%;
+        }
+      }
   }
