@@ -1,367 +1,508 @@
 import {
-    renderSidebar,
-  } from "./components/sidebar.js";
-  
-  import {
-    renderTopbar,
-  } from "./components/topbar.js";
-  
-  import {
-    getPageInformation,
-  } from "./router.js";
-  
-  import {
-    renderLoginPage,
-    initializeLoginPage,
-  } from "./pages/login.js";
-  
-  import {
-    renderRegisterCompanyPage,
-    initializeRegisterCompanyPage,
-  } from "./pages/register-company.js";
-  
-  import {
-    renderDashboard,
-    initializeDashboard,
-  } from "./pages/dashboard.js";
-  
-  import {
-    renderMyServicesPage,
-    initializeMyServicesPage,
-  } from "./pages/my-services.js";
+  renderSidebar,
+} from "./components/sidebar.js";
 
-  import {
-    renderMarketplacePage,
-    initializeMarketplacePage,
-  } from "./pages/marketplace.js";
+import {
+  renderTopbar,
+} from "./components/topbar.js";
 
-  import {
-    renderTransactionsPage,
-    initializeTransactionsPage,
-  } from "./pages/transactions.js";
+import {
+  getPageInformation,
+} from "./router.js";
 
-  import {
-    renderRecommendationsPage,
-    initializeRecommendationsPage,
-  } from "./pages/recommendations.js";
+import {
+  renderLoginPage,
+  initializeLoginPage,
+} from "./pages/login.js";
 
-  import {
-    getCurrentUser,
-    logout,
-  } from "./services/auth-service.js";
+import {
+  renderRegisterCompanyPage,
+  initializeRegisterCompanyPage,
+} from "./pages/register-company.js";
 
-  import {
-    renderPlatformGuidePage,
-    initializePlatformGuidePage,
-  } from "./pages/platform-guide.js";
+import {
+  renderDashboard,
+  initializeDashboard,
+} from "./pages/dashboard.js";
 
-  import {
-    renderAdminRegistrationRequestsPage,
-    initializeAdminRegistrationRequestsPage,
-  } from "./pages/admin-registration-requests.js";
-  
-  
-  let activePage = "dashboard";
-  
-  let currentUser =
-    getCurrentUser();
-  
-  
-  const authRootElement =
-    document.getElementById(
-      "auth-root",
-    );
-  
-  const appRootElement =
-    document.getElementById(
-      "app-root",
-    );
-  
-  const sidebarElement =
-    document.getElementById(
-      "sidebar",
-    );
-  
-  const topbarElement =
-    document.getElementById(
-      "topbar",
-    );
-  
-  const pageContentElement =
-    document.getElementById(
-      "page-content",
-    );
-  
-  
-  function initializeApplication() {
-    if (currentUser) {
-      showMainApplication();
-    } else {
-      showLoginPage();
-    }
-  }
-  
-  
-  function showLoginPage() {
-    appRootElement.classList.add(
-      "hidden",
-    );
-  
-    authRootElement.classList.remove(
-      "hidden",
-    );
-  
-    authRootElement.innerHTML =
-      renderLoginPage();
-  
-    initializeLoginPage({
-      onLoginSuccess:
-        handleLoginSuccess,
-  
-      onShowRegister:
-        showRegisterCompanyPage,
-    });
-  }
-  
-  
-  function showRegisterCompanyPage() {
-    appRootElement.classList.add(
-      "hidden",
-    );
-  
-    authRootElement.classList.remove(
-      "hidden",
-    );
-  
-    authRootElement.innerHTML =
-      renderRegisterCompanyPage();
-  
-    initializeRegisterCompanyPage({
-      onRegistrationSuccess:
-        handleLoginSuccess,
-  
-      onShowLogin:
-        showLoginPage,
-    });
-  }
-  
-  
-  function handleLoginSuccess(user) {
-    currentUser = user;
-  
-    activePage = "dashboard";
-  
+import {
+  renderMyServicesPage,
+  initializeMyServicesPage,
+} from "./pages/my-services.js";
+
+import {
+  renderMarketplacePage,
+  initializeMarketplacePage,
+} from "./pages/marketplace.js";
+
+import {
+  renderTransactionsPage,
+  initializeTransactionsPage,
+} from "./pages/transactions.js";
+
+import {
+  renderRecommendationsPage,
+  initializeRecommendationsPage,
+} from "./pages/recommendations.js";
+
+import {
+  renderPlatformGuidePage,
+  initializePlatformGuidePage,
+} from "./pages/platform-guide.js";
+
+import {
+  renderAdminRegistrationRequestsPage,
+  initializeAdminRegistrationRequestsPage,
+} from "./pages/admin-registration-requests.js";
+
+import {
+  getCurrentUser,
+  logout,
+} from "./services/auth-service.js";
+
+
+const ADMIN_DEFAULT_PAGE =
+  "admin-registration-requests";
+
+const COMPANY_DEFAULT_PAGE =
+  "dashboard";
+
+
+const adminPages = [
+  "admin-registration-requests",
+];
+
+const companyPages = [
+  "dashboard",
+  "marketplace",
+  "my-services",
+  "transactions",
+  "recommendations",
+  "platform-guide",
+];
+
+
+let currentUser =
+  getCurrentUser();
+
+let activePage =
+  getDefaultPageForUser(
+    currentUser,
+  );
+
+
+const authRootElement =
+  document.getElementById(
+    "auth-root",
+  );
+
+const appRootElement =
+  document.getElementById(
+    "app-root",
+  );
+
+const sidebarElement =
+  document.getElementById(
+    "sidebar",
+  );
+
+const topbarElement =
+  document.getElementById(
+    "topbar",
+  );
+
+const pageContentElement =
+  document.getElementById(
+    "page-content",
+  );
+
+
+function initializeApplication() {
+  if (currentUser) {
+    activePage =
+      getDefaultPageForUser(
+        currentUser,
+      );
+
     showMainApplication();
-  }
-  
-  
-  function showMainApplication() {
-    authRootElement.classList.add(
-      "hidden",
-    );
-  
-    appRootElement.classList.remove(
-      "hidden",
-    );
-  
-    renderApplication();
-  }
-  
-  
-  function renderApplication() {
-    const pageInformation =
-      getPageInformation(activePage);
-  
-    sidebarElement.innerHTML =
-      renderSidebar(activePage);
-  
-    topbarElement.innerHTML =
-      renderTopbar(
-        pageInformation.title,
-        pageInformation.description,
-        currentUser,
-      );
-  
-    renderActivePage();
-  
-    attachNavigationEvents();
-  
-    attachLogoutEvent();
-  }
-  
-  
-  function renderActivePage() {
-    if (activePage === "dashboard") {
-      pageContentElement.innerHTML =
-        renderDashboard(currentUser);
 
-      initializeDashboard({
-        currentUser,
-      
-        onNavigate:
-          navigateToPage,
-      
-        onUserUpdated:
-          (freshUser) => {
-            currentUser =
-              freshUser;
-      
-            const pageInformation =
-              getPageInformation(
-                activePage,
-              );
-      
-            topbarElement.innerHTML =
-              renderTopbar(
-                pageInformation.title,
-                pageInformation.description,
-                currentUser,
-              );
-      
-            attachLogoutEvent();
-          },
-      });
-  
-      return;
-    }
-
-    if (activePage === "my-services") {
-        pageContentElement.innerHTML =
-          renderMyServicesPage();
-      
-        initializeMyServicesPage({
-          currentUser,
-        });
-      
-        return;
-    }
-
-    if (activePage === "marketplace") {
-        pageContentElement.innerHTML =
-          renderMarketplacePage();
-      
-        initializeMarketplacePage({
-          currentUser,
-        });
-      
-        return;
-      }
-
-    if (activePage === "transactions") {
-    pageContentElement.innerHTML =
-        renderTransactionsPage();
-    
-    initializeTransactionsPage({
-        currentUser,
-    });
-    
     return;
-    }
-
-    if (activePage === "recommendations") {
-        pageContentElement.innerHTML =
-          renderRecommendationsPage();
-      
-        initializeRecommendationsPage({
-          currentUser,
-        });
-      
-        return;
-      }
-
-      if (activePage === "platform-guide") {
-        pageContentElement.innerHTML =
-          renderPlatformGuidePage();
-      
-        initializePlatformGuidePage();
-      
-        return;
-      }
-
-
-      if (
-        activePage
-        === "admin-registration-requests"
-      ) {
-        pageContentElement.innerHTML =
-          renderAdminRegistrationRequestsPage();
-      
-        initializeAdminRegistrationRequestsPage();
-      
-        return;
-      }
-  
-    const pageInformation =
-      getPageInformation(activePage);
-  
-    pageContentElement.innerHTML = `
-      <div class="card page-placeholder">
-        <div>
-          <h2>
-            ${pageInformation.title}
-          </h2>
-  
-          <p>
-            سيتم بناء محتوى هذه الصفحة
-            في الخطوة القادمة.
-          </p>
-        </div>
-      </div>
-    `;
   }
-  
-  
-  function navigateToPage(pageId) {
-    activePage = pageId;
-  
-    renderApplication();
-  }
-  
-  
-  function attachNavigationEvents() {
-    const navigationButtons =
-      document.querySelectorAll(
-        ".navigation-button",
-      );
-  
-    navigationButtons.forEach(
-      (button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            navigateToPage(
-              button.dataset.page,
-            );
-          },
-        );
-      },
+
+  showLoginPage();
+}
+
+
+function showLoginPage() {
+  appRootElement.classList.add(
+    "hidden",
+  );
+
+  authRootElement.classList.remove(
+    "hidden",
+  );
+
+  authRootElement.innerHTML =
+    renderLoginPage();
+
+  initializeLoginPage({
+    onLoginSuccess:
+      handleLoginSuccess,
+
+    onShowRegister:
+      showRegisterCompanyPage,
+  });
+}
+
+
+function showRegisterCompanyPage() {
+  appRootElement.classList.add(
+    "hidden",
+  );
+
+  authRootElement.classList.remove(
+    "hidden",
+  );
+
+  authRootElement.innerHTML =
+    renderRegisterCompanyPage();
+
+  initializeRegisterCompanyPage({
+    onRegistrationSuccess:
+      handleLoginSuccess,
+
+    onShowLogin:
+      showLoginPage,
+  });
+}
+
+
+function handleLoginSuccess(user) {
+  currentUser = user;
+
+  activePage =
+    getDefaultPageForUser(
+      currentUser,
     );
+
+  showMainApplication();
+}
+
+
+function showMainApplication() {
+  if (!currentUser) {
+    showLoginPage();
+
+    return;
   }
-  
-  
-  function attachLogoutEvent() {
-    const logoutButton =
-      document.getElementById(
-        "logout-button",
-      );
-  
-    if (!logoutButton) {
-      return;
-    }
-  
-    logoutButton.addEventListener(
-      "click",
-      async () => {
-        await logout();
-  
-        currentUser = null;
-  
-        activePage = "dashboard";
-  
-        showLoginPage();
-      },
+
+  activePage =
+    getAuthorizedPage(
+      activePage,
+      currentUser,
     );
+
+  authRootElement.classList.add(
+    "hidden",
+  );
+
+  appRootElement.classList.remove(
+    "hidden",
+  );
+
+  renderApplication();
+}
+
+
+function renderApplication() {
+  if (!currentUser) {
+    showLoginPage();
+
+    return;
   }
-  
-  
-  initializeApplication();
+
+  activePage =
+    getAuthorizedPage(
+      activePage,
+      currentUser,
+    );
+
+  const pageInformation =
+    getPageInformation(
+      activePage,
+    );
+
+  sidebarElement.innerHTML =
+    renderSidebar(
+      activePage,
+      currentUser,
+    );
+
+  topbarElement.innerHTML =
+    renderTopbar(
+      pageInformation.title,
+      pageInformation.description,
+      currentUser,
+    );
+
+  renderActivePage();
+
+  attachNavigationEvents();
+
+  attachLogoutEvent();
+}
+
+
+function renderActivePage() {
+  if (
+    activePage === "dashboard"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderDashboard(
+        currentUser,
+      );
+
+    initializeDashboard({
+      currentUser,
+
+      onNavigate:
+        navigateToPage,
+
+      onUserUpdated:
+        handleCurrentUserUpdate,
+    });
+
+    return;
+  }
+
+
+  if (
+    activePage === "marketplace"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderMarketplacePage();
+
+    initializeMarketplacePage({
+      currentUser,
+    });
+
+    return;
+  }
+
+
+  if (
+    activePage === "my-services"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderMyServicesPage();
+
+    initializeMyServicesPage({
+      currentUser,
+    });
+
+    return;
+  }
+
+
+  if (
+    activePage === "transactions"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderTransactionsPage();
+
+    initializeTransactionsPage({
+      currentUser,
+    });
+
+    return;
+  }
+
+
+  if (
+    activePage === "recommendations"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderRecommendationsPage();
+
+    initializeRecommendationsPage({
+      currentUser,
+    });
+
+    return;
+  }
+
+
+  if (
+    activePage === "platform-guide"
+    && currentUser?.role !== "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderPlatformGuidePage();
+
+    initializePlatformGuidePage();
+
+    return;
+  }
+
+
+  if (
+    activePage
+      === "admin-registration-requests"
+    && currentUser?.role === "admin"
+  ) {
+    pageContentElement.innerHTML =
+      renderAdminRegistrationRequestsPage();
+
+    initializeAdminRegistrationRequestsPage();
+
+    return;
+  }
+
+
+  activePage =
+    getDefaultPageForUser(
+      currentUser,
+    );
+
+  renderApplication();
+}
+
+
+function handleCurrentUserUpdate(
+  freshUser,
+) {
+  currentUser = freshUser;
+
+  activePage =
+    getAuthorizedPage(
+      activePage,
+      currentUser,
+    );
+
+  const pageInformation =
+    getPageInformation(
+      activePage,
+    );
+
+  sidebarElement.innerHTML =
+    renderSidebar(
+      activePage,
+      currentUser,
+    );
+
+  topbarElement.innerHTML =
+    renderTopbar(
+      pageInformation.title,
+      pageInformation.description,
+      currentUser,
+    );
+
+  attachNavigationEvents();
+
+  attachLogoutEvent();
+}
+
+
+function navigateToPage(pageId) {
+  const authorizedPage =
+    getAuthorizedPage(
+      pageId,
+      currentUser,
+    );
+
+  activePage =
+    authorizedPage;
+
+  renderApplication();
+}
+
+
+function getAuthorizedPage(
+  requestedPage,
+  user,
+) {
+  if (!user) {
+    return COMPANY_DEFAULT_PAGE;
+  }
+
+  const isAdmin =
+    user.role === "admin";
+
+  if (isAdmin) {
+    return adminPages.includes(
+      requestedPage,
+    )
+      ? requestedPage
+      : ADMIN_DEFAULT_PAGE;
+  }
+
+  return companyPages.includes(
+    requestedPage,
+  )
+    ? requestedPage
+    : COMPANY_DEFAULT_PAGE;
+}
+
+
+function getDefaultPageForUser(
+  user,
+) {
+  return user?.role === "admin"
+    ? ADMIN_DEFAULT_PAGE
+    : COMPANY_DEFAULT_PAGE;
+}
+
+
+function attachNavigationEvents() {
+  const navigationButtons =
+    document.querySelectorAll(
+      ".navigation-button",
+    );
+
+  navigationButtons.forEach(
+    (button) => {
+      button.addEventListener(
+        "click",
+        () => {
+          navigateToPage(
+            button.dataset.page,
+          );
+        },
+      );
+    },
+  );
+}
+
+
+function attachLogoutEvent() {
+  const logoutButton =
+    document.getElementById(
+      "logout-button",
+    );
+
+  if (!logoutButton) {
+    return;
+  }
+
+  logoutButton.addEventListener(
+    "click",
+    async () => {
+      await logout();
+
+      currentUser = null;
+
+      activePage =
+        COMPANY_DEFAULT_PAGE;
+
+      showLoginPage();
+    },
+  );
+}
+
+
+initializeApplication();

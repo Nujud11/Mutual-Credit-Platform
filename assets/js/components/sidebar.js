@@ -1,50 +1,66 @@
-const navigationItems = [
-    {
-      id: "dashboard",
-      label: "الرئيسية",
-      icon: "⌂",
-    },
-    {
-      id: "marketplace",
-      label: "سوق الخدمات",
-      icon: "◫",
-    },
-    {
-      id: "my-services",
-      label: "خدماتي",
-      icon: "◇",
-    },
-    {
-      id: "transactions",
-      label: "المعاملات",
-      icon: "⇄",
-    },
-    {
-      id: "recommendations",
-      label: "الفرص الذكية",
-      icon: "✦",
-    },
+const companyNavigationItems = [
+  {
+    id: "dashboard",
+    label: "الرئيسية",
+    icon: "⌂",
+  },
+  {
+    id: "marketplace",
+    label: "سوق الخدمات",
+    icon: "◫",
+  },
+  {
+    id: "my-services",
+    label: "خدماتي",
+    icon: "◇",
+  },
+  {
+    id: "transactions",
+    label: "المعاملات",
+    icon: "⇄",
+  },
+  {
+    id: "recommendations",
+    label: "الفرص الذكية",
+    icon: "✦",
+  },
+  {
+    id: "platform-guide",
+    label: "دليل المنصة",
+    icon: "◉",
+  },
+];
 
-    {
-      id: "platform-guide",
-      label: "دليل المنصة",
-      icon: "◉",
-    },
 
-    {
-      id: "admin-registration-requests",
-      label: "طلبات التسجيل",
-      icon: "▣",
-    },
+const adminNavigationItems = [
+  {
+    id: "admin-registration-requests",
+    label: "طلبات التسجيل",
+    icon: "▣",
+  },
+];
 
-  ];
-  
-  export function renderSidebar(activePage = "dashboard") {
-    const navigationButtons = navigationItems
+
+export function renderSidebar(
+  activePage = "dashboard",
+  currentUser = null,
+) {
+  const isAdmin =
+    currentUser?.role === "admin";
+
+  const navigationItems =
+    isAdmin
+      ? adminNavigationItems
+      : companyNavigationItems;
+
+  const navigationButtons =
+    navigationItems
       .map((item) => {
         const activeClass =
-          item.id === activePage ? "active" : "";
-  
+          item.id === activePage
+            ? "active"
+            : "";
+
         return `
           <button
             class="navigation-button ${activeClass}"
@@ -57,22 +73,29 @@ const navigationItems = [
         `;
       })
       .join("");
-  
-    return `
-      <div class="brand">
-        <div class="brand-logo">م</div>
-  
-        <div>
-          <div class="brand-name">مقاصة</div>
-  
-          <div class="brand-description">
-            شبكة الائتمان المتبادل
-          </div>
+
+  const brandDescription =
+    isAdmin
+      ? "إدارة شبكة الائتمان المتبادل"
+      : "شبكة الائتمان المتبادل";
+
+  return `
+    <div class="brand">
+      <div class="brand-logo">م</div>
+
+      <div>
+        <div class="brand-name">
+          مقاصة
+        </div>
+
+        <div class="brand-description">
+          ${brandDescription}
         </div>
       </div>
-  
-      <nav class="sidebar-navigation">
-        ${navigationButtons}
-      </nav>
-    `;
-  }
+    </div>
+
+    <nav class="sidebar-navigation">
+      ${navigationButtons}
+    </nav>
+  `;
+}
