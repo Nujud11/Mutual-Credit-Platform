@@ -24,10 +24,6 @@ const pageInformation = {
       description: "توصيات ذكية تساعد شركتك على تحسين رصيدها",
     },
   
-    "netting-network": {
-      title: "شبكة المقاصة",
-      description: "عرض الديون المتقاطعة وتشغيل خوارزمية المقاصة",
-    },
   };
   
   export function getPageInformation(pageId) {

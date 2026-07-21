@@ -46,11 +46,6 @@ import {
   } from "./pages/recommendations.js";
 
   import {
-    renderNetworkPage,
-    initializeNetworkPage,
-  } from "./pages/network.js";
-
-  import {
     getCurrentUser,
     logout,
   } from "./services/auth-service.js";
@@ -263,18 +258,6 @@ import {
       
         return;
       }
-
-    if (activePage === "netting-network") {
-      pageContentElement.innerHTML =
-        renderNetworkPage();
-    
-      initializeNetworkPage({
-        currentUser,
-      });
-    
-      return;
-    }
-    
   
     const pageInformation =
       getPageInformation(activePage);

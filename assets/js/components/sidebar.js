@@ -24,11 +24,7 @@ const navigationItems = [
       label: "الفرص الذكية",
       icon: "✦",
     },
-    {
-      id: "netting-network",
-      label: "شبكة المقاصة",
-      icon: "⌘",
-    },
+
   ];
   
   export function renderSidebar(activePage = "dashboard") {
