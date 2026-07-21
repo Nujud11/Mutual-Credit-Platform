@@ -463,9 +463,11 @@ import {
                 "تعذر إنشاء طلب الخدمة:",
                 error,
               );
-  
+
               showMarketplaceMessage(
-                "تعذر إرسال طلب الخدمة. حاول مرة أخرى.",
+                getMarketplaceTransactionErrorMessage(
+                  error,
+                ),
                 "error",
               );
   
@@ -485,6 +487,31 @@ import {
     );
   }
   
+  function getMarketplaceTransactionErrorMessage(
+    error,
+  ) {
+    const messages = {
+      "company-not-active":
+        "لا يمكن إرسال الطلب لأن إحدى المنشأتين غير نشطة حاليًا.",
+  
+      "company-not-found":
+        "تعذر العثور على بيانات إحدى المنشأتين.",
+  
+      "service-not-found":
+        "هذه الخدمة لم تعد موجودة.",
+  
+      "service-not-active":
+        "هذه الخدمة غير متاحة حاليًا.",
+  
+      "invalid-service-provider":
+        "تعذر التحقق من مقدم الخدمة.",
+    };
+  
+    return (
+      messages[error?.message]
+      ?? "تعذر إرسال طلب الخدمة. حاول مرة أخرى."
+    );
+  }
   
   function showMarketplaceMessage(
     message,

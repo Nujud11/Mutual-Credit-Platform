@@ -6,6 +6,7 @@ import {
     addDoc,
     collection,
     doc,
+    getDoc,
     getDocs,
     runTransaction,
     serverTimestamp,
@@ -22,48 +23,136 @@ import {
   
   const COMPANIES_COLLECTION =
     "companies";
+
+  const SERVICES_COLLECTION =
+  "services";
   
   
   export async function createTransaction(
     transactionData,
   ) {
+    const buyerReference =
+      doc(
+        db,
+        COMPANIES_COLLECTION,
+        transactionData.buyerCompanyId,
+      );
+
+    const sellerReference =
+      doc(
+        db,
+        COMPANIES_COLLECTION,
+        transactionData.sellerCompanyId,
+      );
+
+    const serviceReference =
+      doc(
+        db,
+        SERVICES_COLLECTION,
+        transactionData.serviceId,
+      );
+
+    const [
+      buyerSnapshot,
+      sellerSnapshot,
+      serviceSnapshot,
+    ] = await Promise.all([
+      getDoc(buyerReference),
+      getDoc(sellerReference),
+      getDoc(serviceReference),
+    ]);
+
+    if (
+      !buyerSnapshot.exists()
+      || !sellerSnapshot.exists()
+    ) {
+      throw new Error(
+        "company-not-found",
+      );
+    }
+
+    if (!serviceSnapshot.exists()) {
+      throw new Error(
+        "service-not-found",
+      );
+    }
+
+    const buyerData =
+      buyerSnapshot.data();
+
+    const sellerData =
+      sellerSnapshot.data();
+
+    const serviceData =
+      serviceSnapshot.data();
+
+    if (
+      buyerData.accountStatus
+        !== "active"
+      || sellerData.accountStatus
+        !== "active"
+    ) {
+      throw new Error(
+        "company-not-active",
+      );
+    }
+
+    if (
+      serviceData.status
+        !== "active"
+    ) {
+      throw new Error(
+        "service-not-active",
+      );
+    }
+
+    if (
+      serviceData.companyId
+        !== transactionData
+          .sellerCompanyId
+    ) {
+      throw new Error(
+        "invalid-service-provider",
+      );
+    }
+
     const transactionDocument = {
       buyerCompanyId:
         transactionData.buyerCompanyId,
-  
+
       buyerCompanyName:
         transactionData.buyerCompanyName,
-  
+
       sellerCompanyId:
         transactionData.sellerCompanyId,
-  
+
       sellerCompanyName:
         transactionData.sellerCompanyName,
-  
+
       serviceId:
         transactionData.serviceId,
-  
+
       serviceName:
         transactionData.serviceName,
-  
+
       serviceCategory:
         transactionData.serviceCategory,
-  
+
       amount:
         Number(
           transactionData.amount,
         ),
-  
+
       status:
         "pending",
-  
+
       createdAt:
         serverTimestamp(),
-  
+
       updatedAt:
         serverTimestamp(),
     };
-  
+
     const documentReference =
       await addDoc(
         collection(
@@ -72,11 +161,11 @@ import {
         ),
         transactionDocument,
       );
-  
+
     return {
       id:
         documentReference.id,
-  
+
       ...transactionDocument,
     };
   }
@@ -158,6 +247,34 @@ import {
         transactionId,
       );
   
+    const transactionSnapshot =
+      await getDoc(
+        transactionReference,
+      );
+  
+    if (
+      !transactionSnapshot.exists()
+    ) {
+      throw new Error(
+        "transaction-not-found",
+      );
+    }
+  
+    const transactionData =
+      transactionSnapshot.data();
+  
+    /*
+     * عند رفض الطلب لا نحتاج متابعة
+     * المعاملة، لذلك نسمح بتسجيل الرفض.
+     * أما القبول فيتطلب نشاط الطرفين.
+     */
+    if (newStatus === "accepted") {
+      await ensureCompaniesAreActive(
+        transactionData.buyerCompanyId,
+        transactionData.sellerCompanyId,
+      );
+    }
+  
     await updateDoc(
       transactionReference,
       {
@@ -168,6 +285,59 @@ import {
           serverTimestamp(),
       },
     );
+  }
+
+  async function ensureCompaniesAreActive(
+    buyerCompanyId,
+    sellerCompanyId,
+  ) {
+    const buyerReference =
+      doc(
+        db,
+        COMPANIES_COLLECTION,
+        buyerCompanyId,
+      );
+  
+    const sellerReference =
+      doc(
+        db,
+        COMPANIES_COLLECTION,
+        sellerCompanyId,
+      );
+  
+    const [
+      buyerSnapshot,
+      sellerSnapshot,
+    ] = await Promise.all([
+      getDoc(buyerReference),
+      getDoc(sellerReference),
+    ]);
+  
+    if (
+      !buyerSnapshot.exists()
+      || !sellerSnapshot.exists()
+    ) {
+      throw new Error(
+        "company-not-found",
+      );
+    }
+  
+    const buyerStatus =
+      buyerSnapshot.data()
+        .accountStatus;
+  
+    const sellerStatus =
+      sellerSnapshot.data()
+        .accountStatus;
+  
+    if (
+      buyerStatus !== "active"
+      || sellerStatus !== "active"
+    ) {
+      throw new Error(
+        "company-not-active",
+      );
+    }
   }
   
   
@@ -264,6 +434,17 @@ import {
   
           const sellerData =
             sellerSnapshot.data();
+
+          if (
+            buyerData.accountStatus
+              !== "active"
+            || sellerData.accountStatus
+              !== "active"
+          ) {
+            throw new Error(
+              "company-not-active",
+            );
+          }
   
           const transactionAmount =
             Number(

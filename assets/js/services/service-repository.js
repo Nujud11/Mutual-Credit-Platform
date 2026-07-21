@@ -16,7 +16,10 @@ import {
   
   const SERVICES_COLLECTION =
     "services";
-  
+
+  const COMPANIES_COLLECTION =
+  "companies";
+
   
   export async function createService(
     serviceData,
@@ -124,36 +127,76 @@ import {
   export async function getMarketplaceServices(
     currentCompanyId,
   ) {
-    const querySnapshot =
-      await getDocs(
+    const [
+      servicesSnapshot,
+      companiesSnapshot,
+    ] = await Promise.all([
+      getDocs(
         collection(
           db,
           SERVICES_COLLECTION,
         ),
+      ),
+  
+      getDocs(
+        collection(
+          db,
+          COMPANIES_COLLECTION,
+        ),
+      ),
+    ]);
+  
+    const activeCompanyIds =
+      new Set(
+        companiesSnapshot.docs
+          .filter(
+            (companyDocument) =>
+              companyDocument.data()
+                .accountStatus
+                === "active",
+          )
+          .map(
+            (companyDocument) =>
+              companyDocument.id,
+          ),
       );
   
     const services =
-      querySnapshot.docs
-        .map((serviceDocument) => ({
-          id: serviceDocument.id,
-          ...serviceDocument.data(),
-        }))
-        .filter((service) => {
-          const belongsToAnotherCompany =
-            service.companyId
-            !== currentCompanyId;
+      servicesSnapshot.docs
+        .map(
+          (serviceDocument) => ({
+            id: serviceDocument.id,
+            ...serviceDocument.data(),
+          }),
+        )
+        .filter(
+          (service) => {
+            const belongsToAnotherCompany =
+              service.companyId
+              !== currentCompanyId;
   
-          const isActive =
-            service.status === "active";
+            const isServiceActive =
+              service.status
+              === "active";
   
-          return (
-            belongsToAnotherCompany
-            && isActive
-          );
-        });
+            const isCompanyActive =
+              activeCompanyIds.has(
+                service.companyId,
+              );
+  
+            return (
+              belongsToAnotherCompany
+              && isServiceActive
+              && isCompanyActive
+            );
+          },
+        );
   
     return services.sort(
-      (firstService, secondService) => {
+      (
+        firstService,
+        secondService,
+      ) => {
         const firstDate =
           firstService.createdAt
             ?.toMillis?.()
