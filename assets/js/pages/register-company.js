@@ -4,7 +4,6 @@ import {
   
   import {
     registerCompany,
-    setCurrentUser,
   } from "../services/auth-service.js";
   
   
@@ -443,19 +442,16 @@ import {
       
           showMessage(
             messageElement,
-            "✅ تم إنشاء الحساب بنجاح، جاري تحويلك...",
-            "success"
+            `
+            ✅ تم استلام طلب تسجيل منشأتك بنجاح.<br><br>
+            طلبك الآن قيد المراجعة من قبل إدارة المنصة، وبعد اعتماده يمكنك تسجيل الدخول باستخدام نفس البريد الإلكتروني وكلمة المرور.
+            `,
+            "success",
           );
-      
+          
           setTimeout(() => {
-      
-            setCurrentUser(result.user);
-      
-            onRegistrationSuccess(
-              result.user
-            );
-      
-          }, 1500);
+            onShowLogin();
+          }, 2500);
       
         }
       );

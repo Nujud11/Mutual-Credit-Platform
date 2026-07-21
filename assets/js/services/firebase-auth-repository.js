@@ -73,6 +73,18 @@ import {
   
       isCommercialRecordVerified:
         isVerified,
+
+      role: "company",
+
+      accountStatus: "pending",
+      
+      subscriptionPlan: "starter",
+      
+      subscriptionStatus: "inactive",
+      
+      subscriptionStart: null,
+      
+      subscriptionEnd: null,
   
       balance: 0,
   

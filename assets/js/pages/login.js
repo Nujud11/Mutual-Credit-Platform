@@ -214,22 +214,44 @@ import {
           return;
         }
   
-        const result =
-        await login({
+        const result = await login({
           email,
           password,
         });
-  
+        
+        if (result.accountStatus === "pending") {
+        
+          showMessage(
+            messageElement,
+            "تم استلام طلب تسجيل منشأتك وهو الآن قيد مراجعة إدارة المنصة. سيتم تفعيل الحساب بعد الموافقة.",
+            "warning",
+          );
+        
+          return;
+        }
+        
+        if (result.accountStatus === "rejected") {
+        
+          showMessage(
+            messageElement,
+            "تم رفض طلب تسجيل المنشأة. يرجى التواصل مع إدارة المنصة.",
+            "error",
+          );
+        
+          return;
+        }
+        
         if (!result.success) {
+        
           showMessage(
             messageElement,
             result.message,
             "error",
           );
-  
+        
           return;
         }
-  
+        
         onLoginSuccess(result.user);
       },
     );
@@ -244,9 +266,11 @@ import {
     element.textContent = message;
 
     element.classList.remove("hidden");
-  
+
     element.className =
-      type === "error"
+    type === "error"
         ? "form-error-message"
+        : type === "warning"
+        ? "form-warning-message"
         : "form-success-message";
   }

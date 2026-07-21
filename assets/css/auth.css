@@ -302,6 +302,22 @@
     font-size: 14px;
     line-height: 1.6;
   }
+
+  .form-warning-message {
+
+    background: #FFF8E6;
+
+    border: 1px solid #F4C430;
+
+    color: #8A5A00;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+  }
   
   .form-success-message {
     padding: 12px 14px;

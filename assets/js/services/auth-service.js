@@ -19,7 +19,7 @@ import {
           registrationData,
         );
   
-      setCurrentUser(company);
+
   
       return {
         success: true,
@@ -53,6 +53,20 @@ import {
           email,
           password,
         );
+
+        if (company.accountStatus === "pending") {
+          return {
+            success: false,
+            accountStatus: "pending",
+          };
+        }
+        
+        if (company.accountStatus === "rejected") {
+          return {
+            success: false,
+            accountStatus: "rejected",
+          };
+        }
   
       setCurrentUser(company);
   
