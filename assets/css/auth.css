@@ -358,4 +358,41 @@
     .form-group.full-width {
       grid-column: auto;
     }
+
+    .form-success-message {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #a8e5bf;
+      border-radius: 12px;
+      background: #eafbf0;
+      color: #26753f;
+      line-height: 1.8;
+    }
+    
+    .form-success-message strong {
+      font-size: 15px;
+    }
+    
+    .form-success-message span {
+      font-size: 14px;
+    }
+    
+    .registration-login-button {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 9px 16px;
+      border: 1px solid #2f8a50;
+      border-radius: 9px;
+      background: transparent;
+      color: #26753f;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    
+    .registration-login-button:hover {
+      background: #d9f5e3;
+    }
   }

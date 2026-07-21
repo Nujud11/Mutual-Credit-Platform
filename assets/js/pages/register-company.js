@@ -443,15 +443,39 @@ import {
           showMessage(
             messageElement,
             `
-            ✅ تم استلام طلب تسجيل منشأتك بنجاح.<br><br>
-            طلبك الآن قيد المراجعة من قبل إدارة المنصة، وبعد اعتماده يمكنك تسجيل الدخول باستخدام نفس البريد الإلكتروني وكلمة المرور.
+              <strong>
+                ✅ تم استلام طلب تسجيل منشأتك بنجاح.
+              </strong>
+          
+              <span>
+                طلبك الآن قيد المراجعة من قبل إدارة المنصة،
+                وبعد اعتماده يمكنك تسجيل الدخول باستخدام
+                نفس البريد الإلكتروني وكلمة المرور.
+              </span>
+          
+              <button
+                id="return-to-login-button"
+                class="registration-login-button"
+                type="button"
+              >
+                العودة إلى تسجيل الدخول
+              </button>
             `,
             "success",
           );
           
-          setTimeout(() => {
-            onShowLogin();
-          }, 2500);
+          registerForm.reset();
+          
+          const returnToLoginButton =
+            document.getElementById(
+              "return-to-login-button",
+            );
+          
+          returnToLoginButton?.addEventListener(
+            "click",
+            onShowLogin,
+          );
+          
       
         }
       );
@@ -463,7 +487,7 @@ import {
     message,
     type,
   ) {
-    element.textContent = message;
+    element.innerHTML = message;
     
     element.classList.remove("hidden");
 
