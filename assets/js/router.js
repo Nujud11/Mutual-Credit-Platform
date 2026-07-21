@@ -23,7 +23,12 @@ const pageInformation = {
       title: "الفرص الذكية",
       description: "توصيات ذكية تساعد شركتك على تحسين رصيدها",
     },
-  
+
+    "platform-guide": {
+      title: "دليل المنصة",
+      description: "تعرف على فكرة مقاصة وآلية عملها ورصيد MQ",
+    },
+      
   };
   
   export function getPageInformation(pageId) {

@@ -49,6 +49,11 @@ import {
     getCurrentUser,
     logout,
   } from "./services/auth-service.js";
+
+  import {
+    renderPlatformGuidePage,
+    initializePlatformGuidePage,
+  } from "./pages/platform-guide.js";
   
   
   let activePage = "dashboard";
@@ -255,6 +260,15 @@ import {
         initializeRecommendationsPage({
           currentUser,
         });
+      
+        return;
+      }
+
+      if (activePage === "platform-guide") {
+        pageContentElement.innerHTML =
+          renderPlatformGuidePage();
+      
+        initializePlatformGuidePage();
       
         return;
       }

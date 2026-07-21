@@ -24,6 +24,12 @@ const navigationItems = [
       label: "الفرص الذكية",
       icon: "✦",
     },
+    
+    {
+      id: "platform-guide",
+      label: "دليل المنصة",
+      icon: "◉",
+    },
 
   ];
   
