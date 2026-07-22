@@ -7,6 +7,10 @@ import {
 } from "./components/topbar.js";
 
 import {
+  initializeNotificationsMenu,
+} from "./components/notifications-menu.js";
+
+import {
   getPageInformation,
 } from "./router.js";
 
@@ -274,6 +278,10 @@ function renderApplication() {
   attachNavigationEvents();
 
   attachLogoutEvent();
+
+  initializeNotificationsMenu({
+    currentUser,
+  });
 }
 
 
@@ -484,6 +492,10 @@ function handleCurrentUserUpdate(
   attachNavigationEvents();
 
   attachLogoutEvent();
+
+  initializeNotificationsMenu({
+    currentUser,
+  });
 }
 
 
