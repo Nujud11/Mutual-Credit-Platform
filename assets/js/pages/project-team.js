@@ -88,7 +88,7 @@ const projectTeamMembers = [
           </span>
   
           <h2>
-            فريق المشروع
+            فريق مشروع المقاصة
           </h2>
   
           <p>
@@ -153,47 +153,25 @@ const projectTeamMembers = [
   }
   
   function renderTeamMemberCard(member) {
-    const optionalInformation = [
+    const metaItems = [
       member.city
         ? `
-          <div class="project-member-detail">
-            <span>📍</span>
-            <p>${escapeHtml(member.city)}</p>
-          </div>
+          <span class="project-member-tag">
+            ${escapeHtml(member.city)}
+          </span>
         `
         : "",
   
       member.school
         ? `
-          <div class="project-member-detail">
-            <span>🏫</span>
-            <p>${escapeHtml(member.school)}</p>
-          </div>
+          <span class="project-member-tag">
+            ${escapeHtml(member.school)}
+          </span>
         `
         : "",
-  
-      member.bio
-        ? `
-          <p class="project-member-bio">
-            ${escapeHtml(member.bio)}
-          </p>
-        `
-        : "",
-
-        member.email
-        ? `
-            <a
-            class="project-member-contact"
-            href="mailto:${escapeHtml(member.email)}"
-            >
-            ✉️
-            <span>
-                ${escapeHtml(member.email)}
-            </span>
-            </a>
-        `
-        : "",
-    ].join("");
+    ]
+      .filter(Boolean)
+      .join("");
   
     return `
       <article
@@ -221,11 +199,34 @@ const projectTeamMembers = [
         </div>
   
         ${
-          optionalInformation
+          metaItems
             ? `
-              <div class="project-member-details">
-                ${optionalInformation}
+              <div class="project-member-tags">
+                ${metaItems}
               </div>
+            `
+            : ""
+        }
+  
+        ${
+          member.bio
+            ? `
+              <p class="project-member-bio">
+                ${escapeHtml(member.bio)}
+              </p>
+            `
+            : ""
+        }
+  
+        ${
+          member.email
+            ? `
+              <a
+                class="project-member-contact"
+                href="mailto:${escapeHtml(member.email)}"
+              >
+                تواصل عبر البريد
+              </a>
             `
             : ""
         }
