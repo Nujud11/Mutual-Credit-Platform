@@ -1,6 +1,8 @@
-const PLATFORM_EMAIL =
-  "njoodalobaid@gmail.com";
-
+const EMAILJS_CONFIG = {
+  serviceId: "service_vp4csdl",
+  templateId: "template_maxf0ph",
+  publicKey: "XMT9dYpbI--L4GtAR",
+};
 
 const projectTeamMembers = [
   {
@@ -299,6 +301,11 @@ export function renderProjectTeamPage() {
 
 
 export function initializeProjectTeamPage() {
+  
+  window.emailjs.init({  
+    publicKey: EMAILJS_CONFIG.publicKey,
+  });
+
   const contactForm =
     document.getElementById(
       "contact-form",
@@ -338,7 +345,7 @@ export function initializeProjectTeamPage() {
 }
 
 
-function handleContactFormSubmit(event) {
+async function handleContactFormSubmit(event) {
   event.preventDefault();
 
   clearFormErrors();
@@ -421,43 +428,42 @@ function handleContactFormSubmit(event) {
     return;
   }
 
+  try {
 
-  const emailSubject =
-    `[${contactType}] ${subject}`;
-
-  const emailBody = `
-نوع التواصل: ${contactType}
-
-البريد الإلكتروني للمرسل:
-${senderEmail}
-
-عنوان الرسالة:
-${subject}
-
-الرسالة:
-${message}
-  `.trim();
-
-
-  const mailtoUrl =
-    `mailto:${encodeURIComponent(
-      PLATFORM_EMAIL,
-    )}`
-    + `?subject=${encodeURIComponent(
-      emailSubject,
-    )}`
-    + `&body=${encodeURIComponent(
-      emailBody,
-    )}`;
-
-
-  setFormStatus(
-    "سيتم فتح تطبيق البريد لإكمال إرسال الرسالة.",
-    "success",
-  );
-
-  window.location.href =
-    mailtoUrl;
+    await window.emailjs.send(
+      EMAILJS_CONFIG.serviceId,
+      EMAILJS_CONFIG.templateId,
+      {
+        contact_type: contactType,
+        subject,
+        sender_email: senderEmail,
+        message,
+        sent_at: new Date().toLocaleString("ar-SA"),
+      }
+    );
+  
+    form.reset();
+  
+    document.getElementById(
+      "contact-character-count"
+    ).textContent = "0 / 1500";
+  
+    setFormStatus(
+      "تم إرسال رسالتك بنجاح.",
+      "success",
+    );
+  
+  }
+  catch (error) {
+  
+    console.error(error);
+  
+    setFormStatus(
+      "تعذر إرسال الرسالة.",
+      "error",
+    );
+  
+  }
 }
 
 
