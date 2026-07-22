@@ -1,6 +1,11 @@
 import {
     db,
   } from "../../../firebase/firebase-config.js";
+
+  import {
+    createAdminNotification,
+    createCompanyNotification,
+  } from "./notification-repository.js";
   
   import {
     addDoc,
@@ -157,6 +162,38 @@ import {
         ),
         requestData,
       );
+
+      try {
+        await createAdminNotification({
+          title:
+            "طلب اشتراك جديد",
+      
+
+          message:
+            `قدمت ${requestData.companyName} طلبًا للانتقال من باقة ${getPlanLabel(
+                requestData.currentPlan,
+            )} إلى باقة ${getPlanLabel(
+                requestData.requestedPlan,
+            )}. بانتظار مراجعة الإدارة.`,
+      
+          type:
+            "info",
+      
+          category:
+            "subscription",
+      
+          relatedEntityType:
+            "subscriptionRequest",
+      
+          relatedEntityId:
+            requestReference.id,
+        });
+      } catch (notificationError) {
+        console.error(
+          "تم إنشاء طلب الاشتراك، لكن تعذر إنشاء إشعار الإدارة:",
+          notificationError,
+        );
+      }
   
     return {
       id: requestReference.id,
@@ -216,107 +253,149 @@ import {
         requestId,
       );
   
-    await runTransaction(
-      db,
-      async (transaction) => {
-        const requestSnapshot =
-          await transaction.get(
-            requestReference,
-          );
-  
-        if (!requestSnapshot.exists()) {
-          throw new Error(
-            "subscription-request-not-found",
-          );
-        }
-  
-        const requestData =
-          requestSnapshot.data();
-  
-        if (
-          requestData.status
-          !== "pending"
-        ) {
-          throw new Error(
-            "subscription-request-already-reviewed",
-          );
-        }
-  
-        if (
-          !allowedPlans.includes(
-            requestData.requestedPlan,
-          )
-        ) {
-          throw new Error(
-            "invalid-requested-plan",
-          );
-        }
-  
-        if (!requestData.companyId) {
-          throw new Error(
-            "company-id-required",
-          );
-        }
-  
-        const companyReference =
-          doc(
-            db,
-            "companies",
-            requestData.companyId,
-          );
-  
-        const companySnapshot =
-          await transaction.get(
+    const approvedRequest =
+        await runTransaction(
+        db,
+        async (transaction) => {
+            const requestSnapshot =
+            await transaction.get(
+                requestReference,
+            );
+    
+            if (!requestSnapshot.exists()) {
+            throw new Error(
+                "subscription-request-not-found",
+            );
+            }
+    
+            const requestData =
+            requestSnapshot.data();
+    
+            if (
+            requestData.status
+            !== "pending"
+            ) {
+            throw new Error(
+                "subscription-request-already-reviewed",
+            );
+            }
+    
+            if (
+            !allowedPlans.includes(
+                requestData.requestedPlan,
+            )
+            ) {
+            throw new Error(
+                "invalid-requested-plan",
+            );
+            }
+    
+            if (!requestData.companyId) {
+            throw new Error(
+                "company-id-required",
+            );
+            }
+    
+            const companyReference =
+            doc(
+                db,
+                "companies",
+                requestData.companyId,
+            );
+    
+            const companySnapshot =
+            await transaction.get(
+                companyReference,
+            );
+    
+            if (!companySnapshot.exists()) {
+            throw new Error(
+                "company-not-found",
+            );
+            }
+    
+            const now =
+            new Date().toISOString();
+    
+            transaction.update(
             companyReference,
-          );
-  
-        if (!companySnapshot.exists()) {
-          throw new Error(
-            "company-not-found",
-          );
-        }
-  
-        const now =
-          new Date().toISOString();
-  
-        transaction.update(
-          companyReference,
-          {
-            subscriptionPlan:
-              requestData.requestedPlan,
-  
-            subscriptionStatus:
-              "active",
-  
-            subscriptionStart:
-              now,
-  
-            subscriptionEnd:
-              null,
-  
-            subscriptionUpdatedAt:
-              now,
-          },
+            {
+                subscriptionPlan:
+                requestData.requestedPlan,
+    
+                subscriptionStatus:
+                "active",
+    
+                subscriptionStart:
+                now,
+    
+                subscriptionEnd:
+                null,
+    
+                subscriptionUpdatedAt:
+                now,
+            },
+            );
+    
+            transaction.update(
+            requestReference,
+            {
+                status:
+                "approved",
+    
+                reviewedAt:
+                now,
+    
+                updatedAt:
+                now,
+    
+                rejectionReason:
+                null,
+            },
+            );
+
+            return {
+                companyId:
+                  requestData.companyId,
+              
+                requestedPlan:
+                  requestData.requestedPlan,
+              };
+        },
         );
-  
-        transaction.update(
-          requestReference,
-          {
-            status:
-              "approved",
-  
-            reviewedAt:
-              now,
-  
-            updatedAt:
-              now,
-  
-            rejectionReason:
-              null,
-          },
-        );
-      },
-    );
+
+
+        try {
+            await createCompanyNotification({
+              companyId:
+                approvedRequest.companyId,
+          
+              title:
+                "تمت الموافقة على الاشتراك",
+          
+              message:
+                `تمت الموافقة على طلب الاشتراك في باقة ${getPlanLabel(
+                  approvedRequest.requestedPlan, 
+                )}، وتم تفعيل الباقة بنجاح.`,
+          
+              type:
+                "success",
+          
+              category:
+                "subscription",
+          
+              relatedEntityType:
+                "subscriptionRequest",
+          
+              relatedEntityId:
+                requestId,
+            });
+          } catch (notificationError) {
+            console.error(
+              "تمت الموافقة على الاشتراك، لكن تعذر إنشاء الإشعار:",
+              notificationError,
+            );
+          } 
   
     return {
       success: true,
@@ -341,56 +420,107 @@ import {
         requestId,
       );
   
-    await runTransaction(
-      db,
-      async (transaction) => {
-        const requestSnapshot =
-          await transaction.get(
+    const rejectedRequest =
+        await runTransaction(
+        db,
+        async (transaction) => {
+            const requestSnapshot =
+            await transaction.get(
+                requestReference,
+            );
+    
+            if (!requestSnapshot.exists()) {
+            throw new Error(
+                "subscription-request-not-found",
+            );
+            }
+    
+            const requestData =
+            requestSnapshot.data();
+    
+            if (
+            requestData.status
+            !== "pending"
+            ) {
+            throw new Error(
+                "subscription-request-already-reviewed",
+            );
+            }
+    
+            const now =
+            new Date().toISOString();
+    
+            transaction.update(
             requestReference,
-          );
-  
-        if (!requestSnapshot.exists()) {
-          throw new Error(
-            "subscription-request-not-found",
-          );
-        }
-  
-        const requestData =
-          requestSnapshot.data();
-  
-        if (
-          requestData.status
-          !== "pending"
-        ) {
-          throw new Error(
-            "subscription-request-already-reviewed",
-          );
-        }
-  
-        const now =
-          new Date().toISOString();
-  
-        transaction.update(
-          requestReference,
-          {
-            status:
-              "rejected",
-  
-            reviewedAt:
-              now,
-  
-            updatedAt:
-              now,
-  
-            rejectionReason:
-              String(
-                rejectionReason
-                ?? "",
-              ).trim(),
-          },
+            {
+                status:
+                "rejected",
+    
+                reviewedAt:
+                now,
+    
+                updatedAt:
+                now,
+    
+                rejectionReason:
+                String(
+                    rejectionReason
+                    ?? "",
+                ).trim(),
+            },
+            );
+
+            return {
+                companyId:
+                  requestData.companyId,
+              
+                requestedPlan:
+                  requestData.requestedPlan,
+              
+                rejectionReason:
+                  String(
+                    rejectionReason
+                    ?? "",
+                  ).trim(),
+              };
+        },
         );
-      },
-    );
+
+        try {
+            await createCompanyNotification({
+              companyId:
+                rejectedRequest.companyId,
+          
+              title:
+                "تم رفض طلب الاشتراك",
+          
+              message:
+                rejectedRequest.rejectionReason
+                  ? `تم رفض طلب الاشتراك في باقة ${getPlanLabel(
+                      rejectedRequest.requestedPlan,
+                    )}. السبب: ${rejectedRequest.rejectionReason}`
+                  : `تم رفض طلب الاشتراك في باقة ${getPlanLabel(
+                      rejectedRequest.requestedPlan,
+                    )}.`,
+          
+              type:
+                "error",
+          
+              category:
+                "subscription",
+          
+              relatedEntityType:
+                "subscriptionRequest",
+          
+              relatedEntityId:
+                requestId,
+            });
+          } catch (notificationError) {
+            console.error(
+              "تم رفض طلب الاشتراك، لكن تعذر إنشاء الإشعار:",
+              notificationError,
+            );
+          }
   
     return {
       success: true,
@@ -441,6 +571,27 @@ import {
     return allowedPlans.includes(plan)
       ? plan
       : "basic";
+  }
+
+  function getPlanLabel(
+    plan,
+  ) {
+    const planLabels = {
+      basic:
+        "الأساسية",
+  
+      professional:
+        "الاحترافية",
+  
+      enterprise:
+        "المؤسسات",
+    };
+  
+    return (
+      planLabels[plan]
+      ?? plan
+      ?? "غير محددة"
+    );
   }
   
   
