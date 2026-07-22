@@ -412,7 +412,7 @@ async function handleContactFormSubmit(event) {
   if (message.length < 10) {
     showFieldError(
       "contact-message",
-      "يرجى كتابة تفاصيل الرسالة.",
+      "يرجى كتابة تفاصيل الرسالة. (10 أحرف على الأقل)",
     );
 
     isValid = false;
