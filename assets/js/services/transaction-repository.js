@@ -332,11 +332,50 @@ import {
       {
         status:
           newStatus,
-  
+    
         updatedAt:
           serverTimestamp(),
       },
     );
+    
+    try {
+      const isAccepted =
+        newStatus === "accepted";
+    
+      await createCompanyNotification({
+        companyId:
+          transactionData.buyerCompanyId,
+    
+        title:
+          isAccepted
+            ? "تم قبول طلب الخدمة"
+            : "تم رفض طلب الخدمة",
+    
+        message:
+          isAccepted
+            ? `وافقت ${transactionData.sellerCompanyName} على طلب خدمة "${transactionData.serviceName}".`
+            : `رفضت ${transactionData.sellerCompanyName} طلب خدمة "${transactionData.serviceName}".`,
+    
+        type:
+          isAccepted
+            ? "success"
+            : "error",
+    
+        category:
+          "transaction",
+    
+        relatedEntityType:
+          "transaction",
+    
+        relatedEntityId:
+          transactionId,
+      });
+    } catch (notificationError) {
+      console.error(
+        "تم تحديث حالة الطلب، لكن تعذر إنشاء الإشعار:",
+        notificationError,
+      );
+    }
   }
 
   async function ensureCompaniesAreActive(
@@ -609,15 +648,84 @@ import {
           return {
             buyerCompanyId:
               transactionData.buyerCompanyId,
-  
+          
+            buyerCompanyName:
+              transactionData.buyerCompanyName,
+          
             sellerCompanyId:
               transactionData.sellerCompanyId,
-  
+          
+            sellerCompanyName:
+              transactionData.sellerCompanyName,
+          
+            serviceName:
+              transactionData.serviceName,
+          
+            amount:
+              transactionAmount,
+          
             buyerNewBalance,
             sellerNewBalance,
           };
         },
       );
+
+      try {
+        await Promise.all([
+          createCompanyNotification({
+            companyId:
+              completionResult
+                .buyerCompanyId,
+      
+            title:
+              "تم إكمال المعاملة",
+      
+            message:
+              `تم إكمال معاملة خدمة "${completionResult.serviceName}" بقيمة ${completionResult.amount} MQ مع ${completionResult.sellerCompanyName}.`,
+      
+            type:
+              "success",
+      
+            category:
+              "transaction",
+      
+            relatedEntityType:
+              "transaction",
+      
+            relatedEntityId:
+              transactionId,
+          }),
+      
+          createCompanyNotification({
+            companyId:
+              completionResult
+                .sellerCompanyId,
+      
+            title:
+              "تم إكمال المعاملة",
+      
+            message:
+              `تم إكمال معاملة خدمة "${completionResult.serviceName}" بقيمة ${completionResult.amount} MQ مع ${completionResult.buyerCompanyName}.`,
+      
+            type:
+              "success",
+      
+            category:
+              "transaction",
+      
+            relatedEntityType:
+              "transaction",
+      
+            relatedEntityId:
+              transactionId,
+          }),
+        ]);
+      } catch (notificationError) {
+        console.error(
+          "تم إكمال المعاملة، لكن تعذر إنشاء بعض الإشعارات:",
+          notificationError,
+        );
+      }
   
     /*
      * بعد نجاح المعاملة نعيد تقييم
