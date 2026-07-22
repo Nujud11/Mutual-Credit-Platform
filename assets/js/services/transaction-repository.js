@@ -16,6 +16,10 @@ import {
   import {
     evaluateCompaniesRisk,
   } from "./risk-service.js";
+
+  import {
+    createCompanyNotification,
+  } from "./notification-repository.js";
   
   
   const TRANSACTIONS_COLLECTION =
@@ -153,7 +157,7 @@ import {
         serverTimestamp(),
     };
 
-    const documentReference =
+      const documentReference =
       await addDoc(
         collection(
           db,
@@ -161,11 +165,52 @@ import {
         ),
         transactionDocument,
       );
-
+    
+    /*
+    * بعد نجاح إنشاء طلب الخدمة،
+    * ننشئ إشعارًا لمقدم الخدمة.
+    *
+    * لا نوقف إنشاء المعاملة إذا فشل
+    * الإشعار حتى لا يتكرر الطلب عند
+    * إعادة المحاولة.
+    */
+    try {
+      await createCompanyNotification({
+        companyId:
+          transactionData.sellerCompanyId,
+    
+        title:
+          "طلب خدمة جديد",
+    
+        message:
+          `تم استلام طلب لخدمة "${transactionData.serviceName}" من ${transactionData.buyerCompanyName} بقيمة ${Number(
+            transactionData.amount,
+          )} MQ.`,
+    
+        type:
+          "info",
+    
+        category:
+          "transaction",
+    
+        relatedEntityType:
+          "transaction",
+    
+        relatedEntityId:
+          documentReference.id,
+      });
+    
+    } catch (notificationError) {
+      console.error(
+        "تم إنشاء طلب الخدمة، لكن تعذر إنشاء الإشعار:",
+        notificationError,
+      );
+    }
+    
     return {
       id:
         documentReference.id,
-
+    
       ...transactionDocument,
     };
   }

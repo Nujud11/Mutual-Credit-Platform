@@ -66,21 +66,18 @@ import {
     );
   
     document.addEventListener(
-      "click",
-      () => {
-        dropdown.classList.add(
-          "hidden",
-        );
-  
-        menuButton.setAttribute(
-          "aria-expanded",
-          "false",
-        );
-      },
-      {
-        once: true,
-      },
-    );
+        "click",
+        () => {
+          dropdown.classList.add(
+            "hidden",
+          );
+      
+          menuButton.setAttribute(
+            "aria-expanded",
+            "false",
+          );
+        },
+      );
   
     markAllButton?.addEventListener(
       "click",

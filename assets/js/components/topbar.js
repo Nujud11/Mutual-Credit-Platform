@@ -53,12 +53,28 @@ export function renderTopbar(
           aria-label="عرض الإشعارات"
           aria-expanded="false"
         >
-          <span
-            class="notifications-bell-icon"
-            aria-hidden="true"
-          >
-            ♢
-          </span>
+            <svg
+              class="notifications-bell-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M18 8C18 4.686 15.314 2 12 2C8.686 2 6 4.686 6 8V11.5C6 12.4 5.6 13.3 4.9 13.9L4 14.7V17H20V14.7L19.1 13.9C18.4 13.3 18 12.4 18 11.5V8Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <path
+                d="M10 20C10.4 21.2 11.1 22 12 22C12.9 22 13.6 21.2 14 20"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
 
           <span
             id="notifications-unread-badge"

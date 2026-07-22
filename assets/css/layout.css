@@ -64,25 +64,36 @@
   .notifications-menu-button {
     position: relative;
   
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
   
     display: inline-flex;
     align-items: center;
     justify-content: center;
   
-    border: 1px solid var(--color-border);
+    border: 1px solid #dbe4f0;
     border-radius: 14px;
   
-    background-color: var(--color-surface);
-    color: var(--color-text);
+    background-color: #ffffff;
+    color: #334155;
   
     cursor: pointer;
   
+    box-shadow:
+      0 4px 12px
+      rgba(15, 23, 42, 0.05);
+  
     transition:
-      border-color 0.2s ease,
       background-color 0.2s ease,
+      border-color 0.2s ease,
       transform 0.2s ease;
+  }
+  
+  .notifications-menu-button:hover {
+    background-color: #f5f8ff;
+    border-color: #b8cdf8;
+  
+    transform: translateY(-1px);
   }
   
   
@@ -93,19 +104,23 @@
   
   
   .notifications-bell-icon {
-    font-size: 23px;
-    line-height: 1;
+    width: 22px;
+    height: 22px;
+
+    display: block;
+  
+    color: #334155;
   }
   
   
   .notifications-unread-badge {
     position: absolute;
   
-    top: -5px;
-    left: -5px;
+    top: -6px;
+    left: -6px;
   
-    min-width: 20px;
-    height: 20px;
+    min-width: 19px;
+    height: 19px;
   
     display: inline-flex;
     align-items: center;
@@ -113,14 +128,18 @@
   
     padding: 0 5px;
   
-    border: 2px solid var(--color-surface);
+    border: 2px solid #ffffff;
     border-radius: 999px;
   
-    background-color: #dc2626;
+    background-color: #ef4444;
     color: #ffffff;
   
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
+  
+    box-shadow:
+      0 3px 8px
+      rgba(239, 68, 68, 0.35);
   }
   
   
@@ -132,19 +151,19 @@
   
     z-index: 1000;
   
-    width: min(390px, calc(100vw - 40px));
-    max-height: 520px;
+    width: min(410px, calc(100vw - 40px));
+    max-height: 540px;
   
     overflow: hidden;
   
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
   
-    background-color: var(--color-surface);
+    background-color: #ffffff;
   
     box-shadow:
-      0 20px 45px
-      rgba(15, 23, 42, 0.16);
+      0 22px 55px
+      rgba(15, 23, 42, 0.17);
   }
   
   
@@ -152,12 +171,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
   
-    padding: 18px;
+    padding: 18px 20px;
   
-    border-bottom:
-      1px solid var(--color-border);
+    border-bottom: 1px solid #e8edf5;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        #f8faff
+      );
   }
   
   
@@ -246,9 +271,15 @@
     background-color: #f8fafc;
   }
   
-  
+
   .notification-item--unread {
-    background-color: #f5f9ff;
+    border-right: 4px solid #2563eb;
+  
+    background-color: #f4f8ff;
+  }
+  
+  .notification-item--unread:hover {
+    background-color: #edf4ff;
   }
   
   
@@ -324,14 +355,18 @@
   .notification-unread-dot {
     flex-shrink: 0;
   
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
   
     margin-top: 7px;
   
     border-radius: 50%;
   
-    background-color: var(--color-primary);
+    background-color: #2563eb;
+  
+    box-shadow:
+      0 0 0 4px
+      rgba(37, 99, 235, 0.1);
   }
   
   
