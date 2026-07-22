@@ -1,5 +1,5 @@
 const PLATFORM_EMAIL =
-  "ضعِي-إيميل-المنصة-هنا@example.com";
+  "njoodalobaid@gmail.com";
 
 
 const projectTeamMembers = [
