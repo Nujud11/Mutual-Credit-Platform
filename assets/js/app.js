@@ -84,6 +84,11 @@ import {
   logout,
 } from "./services/auth-service.js";
 
+import {
+  renderProjectTeamPage,
+  initializeProjectTeamPage,
+} from "./pages/project-team.js";
+
 
 const ADMIN_DEFAULT_PAGE =
   "admin-dashboard";
@@ -97,6 +102,7 @@ const adminPages = [
   "admin-registration-requests",
   "admin-companies",
   "admin-subscriptions",
+  "project-team",
 ];
 
 const companyPages = [
@@ -107,6 +113,7 @@ const companyPages = [
   "subscriptions",
   "recommendations",
   "platform-guide",
+  "project-team",
 ];
 
 
@@ -394,6 +401,17 @@ function renderActivePage() {
 
     initializePlatformGuidePage();
 
+    return;
+  }
+
+  if (
+    activePage === "project-team"
+  ) {
+    pageContentElement.innerHTML =
+      renderProjectTeamPage();
+  
+    initializeProjectTeamPage();
+  
     return;
   }
 

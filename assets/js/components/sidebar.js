@@ -34,6 +34,12 @@ const companyNavigationItems = [
     label: "دليل المنصة",
     icon: "◉",
   },
+
+  {
+    id: "project-team",
+    label: "فريق المشروع",
+    icon: "👥",
+  },
 ];
 
 
@@ -57,6 +63,11 @@ const adminNavigationItems = [
     id: "admin-subscriptions",
     label: "إدارة الاشتراكات",
     icon: "◉",
+  },
+  {
+    id: "project-team",
+    label: "فريق المشروع",
+    icon: "👥",
   },
 ];
 
