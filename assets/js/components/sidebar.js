@@ -37,8 +37,8 @@ const companyNavigationItems = [
 
   {
     id: "project-team",
-    label: "فريق المشروع",
-    icon: "👥",
+    label: "تواصل معنا",
+    icon: "✉",
   },
 ];
 
@@ -66,8 +66,8 @@ const adminNavigationItems = [
   },
   {
     id: "project-team",
-    label: "فريق المشروع",
-    icon: "👥",
+    label: "تواصل معنا",
+    icon: "✉",
   },
 ];
 
