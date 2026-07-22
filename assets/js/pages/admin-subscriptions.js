@@ -740,7 +740,7 @@ import {
   }) {
     const rejectionReason =
       window.prompt(
-        `اكتبي سبب رفض طلب "${companyName}"، أو اتركي الحقل فارغًا:`,
+        `اكتب سبب رفض طلب "${companyName}"، أو اترك الحقل فارغًا:`,
         "",
       );
   

@@ -82,7 +82,7 @@ import {
 
 
 const ADMIN_DEFAULT_PAGE =
-  "admin-registration-requests";
+  "admin-dashboard";
 
 const COMPANY_DEFAULT_PAGE =
   "dashboard";
