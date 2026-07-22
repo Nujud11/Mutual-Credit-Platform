@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-YFKK24EZR3"
+  ></script>
+
+  <script>
+    window.dataLayer =
+      window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag(
+      "config",
+      "G-YFKK24EZR3"
+    );
+  </script>
+
   <meta charset="UTF-8">
 
   <meta
@@ -13,49 +36,73 @@
     content="منصة ذكية للائتمان المتبادل والمقاصة بين المنشآت الصغيرة"
   >
 
-  <title>مقاصة | شبكة الائتمان المتبادل</title>
+  <title>
+    مقاصة | شبكة الائتمان المتبادل
+  </title>
 
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link
+    rel="stylesheet"
+    href="assets/css/main.css"
+  >
 </head>
 
+
 <body>
-    <!--
-      هذا العنصر يعرض صفحات تسجيل الدخول
-      وإنشاء حساب الشركة.
-    -->
-    <div id="auth-root"></div>
-  
-    <!--
-      هذا هو التطبيق الرئيسي.
-      يبدأ مخفيًا إلى أن يسجل المستخدم دخوله.
-    -->
-    <div id="app-root" class="app-layout hidden">
-  
-      <aside id="sidebar" class="sidebar">
-        <!-- سيتم إنشاء القائمة الجانبية بواسطة JavaScript -->
-      </aside>
-  
-      <main class="main-content">
-  
-        <header id="topbar" class="topbar">
-          <!-- سيتم إنشاء الترويسة بواسطة JavaScript -->
-        </header>
-  
-        <section id="page-content" class="page-content">
-          <!-- سيتم عرض الصفحة الحالية هنا -->
-        </section>
-  
-      </main>
-  
-    </div>
+  <!--
+    هذا العنصر يعرض صفحات تسجيل الدخول
+    وإنشاء حساب الشركة.
+  -->
+  <div id="auth-root"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    
-    <script
-      type="module"
-      src="assets/js/app.js"
-    ></script>
 
-  </body>
+  <!--
+    هذا هو التطبيق الرئيسي.
+    يبدأ مخفيًا إلى أن يسجل المستخدم دخوله.
+  -->
+  <div
+    id="app-root"
+    class="app-layout hidden"
+  >
+
+    <aside
+      id="sidebar"
+      class="sidebar"
+    >
+      <!-- سيتم إنشاء القائمة الجانبية بواسطة JavaScript -->
+    </aside>
+
+
+    <main class="main-content">
+
+      <header
+        id="topbar"
+        class="topbar"
+      >
+        <!-- سيتم إنشاء الترويسة بواسطة JavaScript -->
+      </header>
+
+
+      <section
+        id="page-content"
+        class="page-content"
+      >
+        <!-- سيتم عرض الصفحة الحالية هنا -->
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+  ></script>
+
+
+  <script
+    type="module"
+    src="assets/js/app.js"
+  ></script>
+</body>
+
 </html>
