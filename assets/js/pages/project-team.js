@@ -3,77 +3,78 @@ const projectTeamMembers = [
       icon: "👤",
       name: "اسم الطالب الأول",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
     {
       icon: "👤",
       name: "اسم الطالب الثاني",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
     {
       icon: "👤",
       name: "اسم الطالب الثالث",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
     {
       icon: "👤",
       name: "اسم الطالب الرابع",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
     {
       icon: "👤",
       name: "اسم الطالب الخامس",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
     {
       icon: "👤",
       name: "اسم الطالب السادس",
       role: "طالب مشارك",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
+      city: "مدينة الطالب",
+      school: "مدرسة الطالب",
+      bio: "تعريف مختصر عن الطالب، واهتماماته.",
+      email: "ايميل الطالب ",
     },
   ];
   
   const projectSupervisors = [
     {
-      icon: "👩🏻‍💻",
-      name: "نجود العبيد",
-      role: "المطور التقني للمشروع",
-      city: "",
-      school: "",
-      bio: "",
-      email: "",
-      featured: true,
+        icon: "👨🏻‍🏫",
+        name: "د. عمر العديل",
+        role: "مشرف المسار",
+        city: "الأحساء",
+        school: "",
+        bio: "تعريف مختصر عن المشرف، خبراته، ومجال تخصصه.",
+        email: "ايميل المشرف",
+        featured: true,
     },
     {
-      icon: "👨🏻‍🏫",
-      name: "اسم معلم المسار",
-      role: "معلم المسار",
-      city: "",
-      school: "",
-      bio: "",
-      featured: true,
+        icon: "👩🏻‍💻",
+        name: "نجود العبيد",
+        role: "المطور التقني للمشروع",
+        city: "الأحساء",
+        school: "",
+        bio: "تعريف مختصر عن المطور التقني، خبراته، ومجال تخصصه.",
+        email: "ايميل المطور التقني",
+        featured: true,
     },
   ];
   
@@ -83,7 +84,7 @@ const projectTeamMembers = [
   
         <section class="project-team-hero">
           <span class="project-team-label">
-            برنامج مدن المستقبل
+            جمعية بصمات
           </span>
   
           <h2>
@@ -91,7 +92,7 @@ const projectTeamMembers = [
           </h2>
   
           <p>
-            مسار اقتصاد النيون — جمعية بصمات
+              برنامج مدن المستقبل ٢٠٢٦ - مسار اقتصاد النيون
           </p>
         </section>
   
@@ -116,7 +117,7 @@ const projectTeamMembers = [
         <section class="project-team-section">
           <div class="project-team-section-header">
             <h3>
-              التطوير والإشراف
+              الإشراف والتطوير 
             </h3>
   
             <p>
