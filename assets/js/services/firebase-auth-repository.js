@@ -8,6 +8,10 @@ import {
     signInWithEmailAndPassword,
     signOut,
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+  import {
+    createAdminNotification,
+  } from "./notification-repository.js";
   
   import {
     doc,
@@ -109,7 +113,34 @@ import {
       ),
       companyProfile,
     );
-  
+    
+    try {
+      await createAdminNotification({
+        title:
+          "طلب تسجيل منشأة جديد",
+    
+        message:
+          `قامت منشأة "${companyProfile.companyName}" بإرسال طلب تسجيل جديد، والطلب الآن بانتظار المراجعة.`,
+    
+        type:
+          "info",
+    
+        category:
+          "company",
+    
+        relatedEntityType:
+          "company",
+    
+        relatedEntityId:
+          firebaseUser.uid,
+      });
+    } catch (notificationError) {
+      console.error(
+        "تم إنشاء حساب الشركة، لكن تعذر إنشاء إشعار الإدارة:",
+        notificationError,
+      );
+    }
+    
     return companyProfile;
   }
   
