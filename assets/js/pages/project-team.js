@@ -29,7 +29,6 @@ const projectTeamMembers = [
   {
     name: "عبدالله زيدان الرشيدي",
     city: "حايل",
-    email: "student6@example.com",
   },
 ];
 
@@ -42,7 +41,6 @@ const projectSupervisors = [
   {
     name: "نجود العبيد",
     role: "المطور التقني للمشروع",
-    email: "njoodalobaid@gmail.com",
   },
 ];
 
