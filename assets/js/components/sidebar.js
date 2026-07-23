@@ -151,5 +151,14 @@ export function renderSidebar(
     >
       ${navigationButtons}
     </nav>
+
+    <button
+      class="sidebar-logout-button"
+      data-logout-button
+      type="button"
+    >
+      <span aria-hidden="true">↪</span>
+      <span>تسجيل الخروج</span>
+    </button>
   `;
 }

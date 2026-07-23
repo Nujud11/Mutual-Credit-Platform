@@ -730,3 +730,53 @@
     max-width: 100%;
   }
 }
+
+
+/* =========================================
+   Clean mobile topbar
+========================================= */
+
+@media (max-width: 580px) {
+  .topbar {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 70px;
+
+    padding: 12px 15px;
+  }
+
+  .page-heading,
+  .company-summary,
+  .topbar .logout-button {
+    display: none !important;
+  }
+
+  .mobile-menu-button {
+    order: 1;
+
+    display: inline-flex;
+  }
+
+  .topbar-user-area {
+    order: 2;
+
+    width: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 0;
+  }
+
+  .notifications-menu {
+    display: block;
+  }
+
+  .notifications-menu-button {
+    width: 44px;
+    height: 44px;
+  }
+}

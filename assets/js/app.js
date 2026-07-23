@@ -595,26 +595,28 @@ function attachNavigationEvents() {
 
 
 function attachLogoutEvent() {
-  const logoutButton =
-    document.getElementById(
-      "logout-button",
+  const logoutButtons =
+    document.querySelectorAll(
+      "[data-logout-button]",
     );
 
-  if (!logoutButton) {
-    return;
-  }
+  logoutButtons.forEach(
+    (button) => {
+      button.addEventListener(
+        "click",
+        async () => {
+          closeMobileSidebar();
 
-  logoutButton.addEventListener(
-    "click",
-    async () => {
-      await logout();
+          await logout();
 
-      currentUser = null;
+          currentUser = null;
 
-      activePage =
-        COMPANY_DEFAULT_PAGE;
+          activePage =
+            COMPANY_DEFAULT_PAGE;
 
-      showLoginPage();
+          showLoginPage();
+        },
+      );
     },
   );
 }

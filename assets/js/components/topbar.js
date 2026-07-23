@@ -156,8 +156,8 @@ export function renderTopbar(
 
 
       <button
-        id="logout-button"
         class="logout-button"
+        data-logout-button
         type="button"
       >
         تسجيل الخروج
