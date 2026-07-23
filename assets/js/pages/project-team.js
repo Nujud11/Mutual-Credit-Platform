@@ -6,33 +6,29 @@ const EMAILJS_CONFIG = {
 
 const projectTeamMembers = [
   {
-    name: "اسم الطالب الأول",
-    city: "مدينة الطالب",
-    email: "student1@example.com",
+    name: "عمر فهد الحربي",
+    city: "المدينة المنودة",
   },
   {
-    name: "اسم الطالب الثاني",
-    city: "مدينة الطالب",
-    email: "student2@example.com",
+    name: "عيسى هزاع المطيري",
+    city: "المجمعة",
   },
   {
-    name: "اسم الطالب الثالث",
-    city: "مدينة الطالب",
-    email: "student3@example.com",
+    name: "أحمد نايف الخميس",
+    city: "الأحساء",
   },
   {
-    name: "اسم الطالب الرابع",
-    city: "مدينة الطالب",
-    email: "student4@example.com",
+    name: "محمد أحمد الصبان",
+    city: "مكة المكرمة",
+
   },
   {
-    name: "اسم الطالب الخامس",
-    city: "مدينة الطالب",
-    email: "student5@example.com",
+    name: "خالد سعيد القحطاني" ,
+    city: "القويعية",
   },
   {
-    name: "اسم الطالب السادس",
-    city: "مدينة الطالب",
+    name: "عبدالله زيدان الرشيدي",
+    city: "حايل",
     email: "student6@example.com",
   },
 ];
@@ -42,12 +38,11 @@ const projectSupervisors = [
   {
     name: "د. عمر العديل",
     role: "مشرف المسار",
-    email: "supervisor@example.com",
   },
   {
     name: "نجود العبيد",
     role: "المطور التقني للمشروع",
-    email: "developer@example.com",
+    email: "njoodalobaid@gmail.com",
   },
 ];
 
