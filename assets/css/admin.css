@@ -1319,19 +1319,240 @@
       transform: rotate(360deg);
     }
   }
-  
+    
+  /* =========================================
+    Admin responsive layout
+  ========================================= */
+
+  .admin-page,
+  .admin-dashboard-content-grid,
+  .admin-dashboard-panel,
+  .admin-dashboard-statistics {
+    min-width: 0;
+  }
+
+
+  @media (max-width: 1200px) {
+    .admin-dashboard-statistics {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-companies-statistics {
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    }
+  }
+
+
   @media (max-width: 900px) {
     .admin-page-header {
       flex-direction: column;
     }
-  
+
+    .admin-dashboard-content-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .registration-company-metadata {
-      grid-template-columns: repeat(
-        2,
-        minmax(120px, 1fr)
-      );
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-companies-statistics {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-company-information-grid {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
     }
   }
+
+
+  @media (max-width: 700px) {
+    .admin-hero,
+    .admin-dashboard-hero {
+      min-height: auto;
+
+      flex-direction: column;
+      align-items: stretch;
+
+      gap: 20px;
+      padding: 22px 20px;
+    }
+
+    .admin-hero-button,
+    .admin-dashboard-hero-button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .admin-dashboard-hero h2 {
+      font-size: 27px;
+    }
+
+    .admin-dashboard-hero p {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .admin-dashboard-panel-header {
+      flex-direction: column;
+
+      padding: 18px;
+    }
+
+    .admin-dashboard-link-button {
+      align-self: flex-start;
+
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .latest-company-request {
+      align-items: flex-start;
+      flex-direction: column;
+
+      gap: 12px;
+      padding: 17px 18px;
+    }
+
+    .latest-company-request-main {
+      width: 100%;
+    }
+
+    .latest-company-request-meta {
+      width: 100%;
+
+      justify-content: space-between;
+    }
+
+    .admin-quick-actions {
+      padding: 16px;
+    }
+
+    .admin-companies-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .admin-companies-search {
+      max-width: none;
+    }
+
+    .admin-companies-filter {
+      min-width: 0;
+    }
+
+    .admin-company-card-header {
+      flex-direction: column;
+    }
+
+    .admin-company-actions {
+      width: 100%;
+
+      justify-content: stretch;
+    }
+
+    .admin-company-action-button {
+      flex: 1;
+    }
+  }
+
+
+@media (max-width: 600px) {
+  .registration-request-main {
+    flex-direction: column;
+  }
+
+  .registration-company-title {
+    flex-direction: column;
+  }
+
+  .registration-company-metadata {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .registration-request-actions {
+    flex-direction: column;
+  }
+
+  .admin-approve-button,
+  .admin-reject-button {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 560px) {
+  .admin-page {
+    gap: 18px;
+  }
+
+  .admin-dashboard-statistics,
+  .admin-companies-statistics {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 12px;
+  }
+
+  .admin-dashboard-stat-card {
+    min-height: 94px;
+
+    padding: 16px;
+  }
+
+  .admin-dashboard-stat-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .admin-dashboard-stat-card strong {
+    font-size: 24px;
+  }
+
+  .admin-dashboard-content-grid {
+    gap: 16px;
+  }
+
+  .admin-dashboard-panel {
+    width: 100%;
+  }
+
+  .admin-dashboard-panel-header {
+    padding: 16px;
+  }
+
+  .admin-dashboard-panel-header h3 {
+    font-size: 17px;
+  }
+
+  .admin-dashboard-panel-header p {
+    font-size: 12px;
+  }
+
+  .admin-quick-action {
+    align-items: flex-start;
+
+    padding: 14px;
+  }
+
+  .admin-quick-action-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .admin-company-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-company-information-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
   
   @media (max-width: 600px) {
     .registration-request-main {

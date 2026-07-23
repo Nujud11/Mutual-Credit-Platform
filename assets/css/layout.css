@@ -568,35 +568,165 @@
   cursor:pointer;
 }
 
-@media (max-width:900px){
+/* =========================================
+   Mobile topbar
+========================================= */
 
-  .topbar{
+@media (max-width: 900px) {
+  .topbar {
+    display: grid;
 
-      display:grid;
+    /* اليسار: الحساب — الوسط: العنوان — اليمين: القائمة */
+    grid-template-columns:
+      auto
+      minmax(0, 1fr)
+      auto;
 
-      grid-template-columns:auto 1fr auto;
+    grid-template-areas:
+      "actions heading menu";
 
-      align-items:center;
+    align-items: center;
+    gap: 10px;
 
-      gap:12px;
+    min-height: 76px;
+    padding: 12px 16px;
   }
 
-  .mobile-menu-button{
+  .mobile-menu-button {
+    grid-area: menu;
 
-      display:flex;
+    width: 44px;
+    height: 44px;
 
-      align-items:center;
-      justify-content:center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
   }
 
-  .page-heading{
+  .page-heading {
+    grid-area: heading;
 
-      min-width:0;
+    min-width: 0;
+    width: 100%;
   }
 
-  .page-heading h1{
+  .page-heading h1 {
+    margin: 0;
 
-      font-size:22px;
+    overflow: hidden;
+
+    font-size: 20px;
+    line-height: 1.35;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
+  .page-heading p {
+    margin: 3px 0 0;
+
+    overflow: hidden;
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .topbar-user-area {
+    grid-area: actions;
+
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .company-summary {
+    display: none;
+  }
+
+  .notifications-menu-button {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+  }
+
+  .logout-button {
+    min-width: auto;
+
+    padding: 9px 11px;
+
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .topbar {
+    grid-template-columns:
+      auto
+      minmax(0, 1fr)
+      auto;
+
+    gap: 8px;
+
+    padding: 11px 12px;
+  }
+
+  .mobile-menu-button,
+  .notifications-menu-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-heading h1 {
+    font-size: 18px;
+  }
+
+  .page-heading p {
+    display: none;
+  }
+
+  .logout-button {
+    padding: 8px;
+
+    font-size: 0;
+  }
+
+  .logout-button::after {
+    content: "خروج";
+
+    font-size: 11px;
+  }
+
+  .notifications-dropdown {
+    top: 64px;
+    right: 10px;
+    left: 10px;
+
+    width: auto;
+    max-height: calc(100vh - 85px);
+  }
+}
+
+@media (max-width: 900px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-layout,
+  .main-content,
+  .page-content,
+  .topbar {
+    max-width: 100%;
+  }
 }
