@@ -34,7 +34,6 @@ const companyNavigationItems = [
     label: "دليل المنصة",
     icon: "◉",
   },
-
   {
     id: "project-team",
     label: "تواصل معنا",
@@ -98,8 +97,16 @@ export function renderSidebar(
             data-page="${item.id}"
             type="button"
           >
-            <span>${item.icon}</span>
-            <span>${item.label}</span>
+            <span
+              class="navigation-button-icon"
+              aria-hidden="true"
+            >
+              ${item.icon}
+            </span>
+
+            <span>
+              ${item.label}
+            </span>
           </button>
         `;
       })
@@ -111,21 +118,37 @@ export function renderSidebar(
       : "شبكة الائتمان المتبادل";
 
   return `
-    <div class="brand">
-      <div class="brand-logo">م</div>
-
-      <div>
-        <div class="brand-name">
-          مقاصة
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-logo">
+          م
         </div>
 
-        <div class="brand-description">
-          ${brandDescription}
+        <div>
+          <div class="brand-name">
+            مقاصة
+          </div>
+
+          <div class="brand-description">
+            ${brandDescription}
+          </div>
         </div>
       </div>
+
+      <button
+        id="close-sidebar-button"
+        class="close-sidebar-button"
+        type="button"
+        aria-label="إغلاق القائمة"
+      >
+        ×
+      </button>
     </div>
 
-    <nav class="sidebar-navigation">
+    <nav
+      class="sidebar-navigation"
+      aria-label="القائمة الرئيسية"
+    >
       ${navigationButtons}
     </nav>
   `;

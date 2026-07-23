@@ -32,6 +32,18 @@ export function renderTopbar(
     || "م";
 
   return `
+
+    <button
+      id="mobile-menu-button"
+      class="mobile-menu-button"
+      type="button"
+      aria-label="فتح القائمة"
+      aria-expanded="false"
+      aria-controls="sidebar"
+    >
+      ☰
+    </button>
+
     <div class="page-heading">
       <h1>
         ${escapeHtml(title)}

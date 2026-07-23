@@ -286,6 +286,8 @@ function renderApplication() {
 
   attachLogoutEvent();
 
+  attachMobileSidebarEvents();
+
   initializeNotificationsMenu({
     currentUser,
   });
@@ -511,6 +513,8 @@ function handleCurrentUserUpdate(
 
   attachLogoutEvent();
 
+  attachMobileSidebarEvents();
+
   initializeNotificationsMenu({
     currentUser,
   });
@@ -578,6 +582,8 @@ function attachNavigationEvents() {
       button.addEventListener(
         "click",
         () => {
+          closeMobileSidebar();
+
           navigateToPage(
             button.dataset.page,
           );
@@ -610,6 +616,119 @@ function attachLogoutEvent() {
 
       showLoginPage();
     },
+  );
+}
+
+function closeMobileSidebar() {
+  sidebarElement.classList.remove(
+    "sidebar-open",
+  );
+
+  document
+    .getElementById(
+      "sidebar-overlay",
+    )
+    ?.classList.remove(
+      "sidebar-overlay-visible",
+    );
+
+  document.body.classList.remove(
+    "sidebar-is-open",
+  );
+}
+
+function attachMobileSidebarEvents() {
+  const mobileMenuButton =
+    document.getElementById(
+      "mobile-menu-button",
+    );
+
+  const closeSidebarButton =
+    document.getElementById(
+      "close-sidebar-button",
+    );
+
+  let sidebarOverlay =
+    document.getElementById(
+      "sidebar-overlay",
+    );
+
+  if (!sidebarOverlay) {
+    sidebarOverlay =
+      document.createElement("div");
+
+    sidebarOverlay.id =
+      "sidebar-overlay";
+
+    sidebarOverlay.className =
+      "sidebar-overlay";
+
+    document.body.appendChild(
+      sidebarOverlay,
+    );
+  }
+
+  function openSidebar() {
+    sidebarElement.classList.add(
+      "sidebar-open",
+    );
+
+    sidebarOverlay.classList.add(
+      "sidebar-overlay-visible",
+    );
+
+    document.body.classList.add(
+      "sidebar-is-open",
+    );
+
+    mobileMenuButton?.setAttribute(
+      "aria-expanded",
+      "true",
+    );
+  }
+
+  function closeSidebar() {
+    sidebarElement.classList.remove(
+      "sidebar-open",
+    );
+
+    sidebarOverlay.classList.remove(
+      "sidebar-overlay-visible",
+    );
+
+    document.body.classList.remove(
+      "sidebar-is-open",
+    );
+
+    mobileMenuButton?.setAttribute(
+      "aria-expanded",
+      "false",
+    );
+  }
+
+  mobileMenuButton?.addEventListener(
+    "click",
+    openSidebar,
+  );
+
+  closeSidebarButton?.addEventListener(
+    "click",
+    closeSidebar,
+  );
+
+  sidebarOverlay.addEventListener(
+    "click",
+    closeSidebar,
+  );
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key === "Escape") {
+        closeSidebar();
+      }
+    },
+    { once: true },
   );
 }
 
